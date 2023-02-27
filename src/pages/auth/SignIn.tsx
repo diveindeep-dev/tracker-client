@@ -1,9 +1,10 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { FormEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signInApi } from '../../features/auth/api';
 import { fetchUser } from '../../features/auth/slice';
-import { idRegex } from '../../utils/regex';
+import useForm from '../../hooks/useForm';
+import { signValidation } from '../../utils/regex';
 
 const initialValue: SignInFormValue = {
   profileId: '',
@@ -11,31 +12,20 @@ const initialValue: SignInFormValue = {
 };
 
 function SignIn() {
-  const [values, setValues] = useState<SignInFormValue>(initialValue);
-  const [error, setError] = useState<string>('');
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
+  const { values, handleChange, error, setError, resetValues } = useForm({
+    initialValue,
+  });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { profileId, password } = values;
-
-    if (!profileId || !password) {
-      return setError('모든 항목을 입력해주세요.');
-    }
-    if (!idRegex.test(profileId)) {
-      return setError('ID 형식이 유효하지 않습니다.');
+    const message = signValidation(values, true);
+    if (message) {
+      return setError(message);
     }
 
-    const user: SignInFormValue = {
-      profileId,
-      password,
-    };
-
+    const user: SignInFormValue = values;
     const result = await signInApi(user);
 
     if (result) {
@@ -45,7 +35,7 @@ function SignIn() {
         navigate('/');
       } else {
         setError(result.data.message);
-        setValues(initialValue);
+        resetValues();
       }
     } else {
       setError(`서버가 불안정합니다. 다시 시도해주세요.`);

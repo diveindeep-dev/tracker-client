@@ -6,6 +6,7 @@ interface User {
   name: string;
   color: string;
   emoji: string;
+  [key: string]: string;
 }
 
 interface SignInFormValue {
@@ -27,4 +28,11 @@ interface Auth {
 
 interface State {
   auth: Auth;
+}
+
+interface EditProfileFormValue {
+  name?: string;
+  color?: string;
+  emoji?: string;
+  [key: string]: string;
 }

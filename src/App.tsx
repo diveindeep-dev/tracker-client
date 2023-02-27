@@ -6,6 +6,7 @@ import Layout from './layouts';
 import Index from './pages';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
+import Setting from './pages/setting';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -31,6 +32,7 @@ function App() {
             path="/signin"
             element={isAuthenticated ? <Navigate replace to="/" /> : <SignIn />}
           />
+          <Route path="/setting" element={<Setting />} />
           <Route path="/" element={<Index />} />
         </Routes>
       </Layout>

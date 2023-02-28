@@ -7,6 +7,7 @@ import Index from './pages';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
 import Setting from './pages/setting';
+import GlobalStyle from './styles/GlobalStyle';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -22,6 +23,7 @@ function App() {
 
   return (
     <div className="App">
+      <GlobalStyle />
       <Layout>
         <Routes>
           <Route

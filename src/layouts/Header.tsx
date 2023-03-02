@@ -3,15 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { signOut } from '../features/auth/slice';
 import Pic from '../components/Pic';
+import Logo from './Logo';
 import styled from 'styled-components';
-import { flexCenter, hoverButton } from '../styles/Mixin';
+import { hoverButton, media } from '../styles/Mixin';
 import { colorAll, fontAll } from '../styles/Variables';
-
-const Logo = styled(Link)`
-  ${flexCenter}
-  font-size: 2rem;
-  font-family: ${fontAll.logo};
-`;
 
 const Logout = styled.button`
   padding: 0 10px;
@@ -35,21 +30,35 @@ const Signup = styled(Link)`
 const Auth = styled.div`
   display: flex;
   align-items: center;
+`;
 
-  a {
-    padding: 5px 10px;
-    margin: 0 5px;
+const LogoWrap = styled.div`
+  display: none;
+
+  ${media.mobile} {
+    display: flex;
   }
 `;
 
 const HEADER = styled.header`
   grid-area: header;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  padding: 20px;
+  padding: 0 20px;
+  height: 80px;
   font-size: 1.2rem;
   border-bottom: 1px solid ${colorAll.light.line};
+
+  a {
+    padding: 5px 10px;
+    margin: 0 5px;
+  }
+
+  ${media.mobile} {
+    justify-content: space-between;
+    padding: 0 10px;
+  }
 `;
 
 function Header() {
@@ -58,11 +67,17 @@ function Header() {
 
   return (
     <HEADER>
-      <Logo to={`/`}>TRACKER</Logo>
+      <LogoWrap>
+        <Logo />
+      </LogoWrap>
       <Auth>
         {signInUser ? (
           <>
-            <Pic emoji={signInUser.emoji} color={signInUser.color} size={30} />
+            <Pic
+              emoji={signInUser.emoji}
+              color={signInUser.color}
+              size={[30, 30]}
+            />
             <Name>{signInUser.name}</Name>
             <Logout onClick={() => dispath(signOut())}>Logout</Logout>
           </>

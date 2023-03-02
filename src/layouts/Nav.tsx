@@ -24,7 +24,7 @@ const LINK = styled(NavLink)`
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 5px 10px;
+  padding: 10px;
   font-family: ${fontAll.logo};
   svg {
     font-size: 1.5rem;
@@ -53,9 +53,8 @@ const NAV = styled.nav`
   grid-area: nav;
   display: flex;
   flex-direction: column;
-  padding: 20px 0;
+  padding: 20px;
   font-size: 1.3rem;
-  border-right: 1px solid ${colorAll.light.line};
 
   li {
     margin: 10px;

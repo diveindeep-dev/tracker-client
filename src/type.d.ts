@@ -16,8 +16,8 @@ interface SignInFormValue {
 
 interface SignUpFormValue extends SignInFormValue {
   name: string;
-  color: string;
-  emoji: string;
+  color?: string;
+  emoji?: string;
   passwordConfirm?: string;
 }
 

@@ -8,8 +8,6 @@ import { signValidation } from '../../utils/regex';
 const initialValue: SignUpFormValue = {
   name: '',
   profileId: '',
-  color: '',
-  emoji: '',
   password: '',
   passwordConfirm: '',
 };

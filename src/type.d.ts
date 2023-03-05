@@ -36,3 +36,11 @@ interface EditProfileFormValue {
   emoji?: string;
   [key: string]: string;
 }
+
+interface Tracker {
+  text: string;
+  user: string;
+  schedule: string[];
+  tags?: string[];
+  url?: string;
+}

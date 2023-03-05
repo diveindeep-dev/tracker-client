@@ -10,3 +10,18 @@ export const make2week = (date?: string) => {
 
   return twoWeeks;
 };
+
+export const calculateByte = (text: string): number => {
+  let total = 0;
+
+  for (let i = 0; i < text.length; i++) {
+    const charCode = text[i].charCodeAt(0);
+    if (charCode > 127) {
+      total += 2;
+    } else {
+      total += 1;
+    }
+  }
+
+  return total;
+};

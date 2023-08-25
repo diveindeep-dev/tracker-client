@@ -16,7 +16,7 @@ const LAYOUT = styled.div`
   grid-template-areas:
     'nav header header'
     'nav main side'
-    'footer footer footer';
+    'nav footer side';
 
   ${media.tablet} {
     grid-template-columns: 1fr 4fr;

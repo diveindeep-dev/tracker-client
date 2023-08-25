@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import styled from 'styled-components';
-import { media } from '../styles/Mixin';
+import { flexCenter, hoverButton, media } from '../styles/Mixin';
+import { colorAll } from '../styles/Variables';
 
 const LogoWrap = styled.div`
   display: none;
@@ -12,10 +13,33 @@ const LogoWrap = styled.div`
   }
 `;
 
+const Signin = styled(Link)`
+  ${hoverButton(`${colorAll.light.grey}`)}
+  padding: 5px 10px;
+  margin: 0 5px;
+`;
+
+const Signup = styled(Link)`
+  ${hoverButton(`${colorAll.main}`)}
+  padding: 5px 10px;
+  margin: 0 5px;
+`;
+
+const AuthContainer = styled.div`
+  ${flexCenter}
+`;
+
 const HEADER = styled.header`
   grid-area: header;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  height: 80px;
+  padding: 0 10px;
+  border-bottom: 1px solid ${colorAll.line};
+
+  ${media.mobile} {
+    justify-content: space-between;
+  }
 `;
 
 function Header() {
@@ -24,10 +48,10 @@ function Header() {
       <LogoWrap>
         <Logo />
       </LogoWrap>
-      <div>
-        <Link to={`/signup`}>Sign Up</Link>
-        <Link to={`/signin`}>Sign In</Link>
-      </div>
+      <AuthContainer>
+        <Signup to={`/signup`}>Sign Up</Signup>
+        <Signin to={`/signin`}>Sign In</Signin>
+      </AuthContainer>
     </HEADER>
   );
 }

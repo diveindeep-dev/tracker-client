@@ -1,6 +1,7 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent } from 'react';
 import { signInApi } from '../../featuers/auth/api';
-import { idRegex } from '../../utils/regex';
+import useForm from '../../hooks/useForm';
+import { signValidation } from '../../utils/regex';
 
 const initialValue: SignInFormValue = {
   profileId: '',
@@ -8,33 +9,16 @@ const initialValue: SignInFormValue = {
 };
 
 function SignIn() {
-  const [values, setValues] = useState<SignInFormValue>(initialValue);
-  const [error, setError] = useState<string>('');
-
-  useEffect(() => {
-    setTimeout(() => setError(''), 2000);
-  }, [error]);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
+  const { values, handleChange, error, setError } = useForm({ initialValue });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { profileId, password } = values;
-
-    if (!profileId || !password) {
-      return setError('모든 항목을 입력해주세요.');
-    }
-    if (!idRegex.test(profileId)) {
-      return setError('ID 형식이 유효하지 않습니다.');
+    const message = signValidation(values);
+    if (message) {
+      return setError(message);
     }
 
-    const signInUser: SignInFormValue = {
-      profileId,
-      password,
-    };
-
+    const signInUser: SignInFormValue = values;
     const result = await signInApi(signInUser);
 
     if (result) {

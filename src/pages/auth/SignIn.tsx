@@ -1,5 +1,6 @@
 import React, { FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { fetchUser } from '../../features/auth/slice';
 import { signInApi } from '../../features/auth/api';
 import useForm from '../../hooks/useForm';
 import { signValidation } from '../../utils/regex';
@@ -10,7 +11,7 @@ const initialValue: SignInFormValue = {
 };
 
 function SignIn() {
-  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const { values, handleChange, error, setError, resetValues } = useForm({
     initialValue,
   });
@@ -28,7 +29,7 @@ function SignIn() {
     if (result) {
       if (result.status === 200) {
         localStorage.setItem('token', result.data.token);
-        navigate('/');
+        dispatch(fetchUser());
       } else {
         setError(result.data.message);
         resetValues();

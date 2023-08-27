@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { signOut } from '../features/auth/slice';
 import Logo from './Logo';
 import styled from 'styled-components';
 import { flexCenter, hoverButton, media } from '../styles/Mixin';
@@ -43,14 +45,26 @@ const HEADER = styled.header`
 `;
 
 function Header() {
+  const signInUser = useSelector((state: State) => state.auth.signInUser);
+  const dispatch = useDispatch<AppDispatch>();
+
   return (
     <HEADER>
       <LogoWrap>
         <Logo />
       </LogoWrap>
       <AuthContainer>
-        <Signup to={`/signup`}>Sign Up</Signup>
-        <Signin to={`/signin`}>Sign In</Signin>
+        {signInUser ? (
+          <>
+            <div>{signInUser.name}</div>
+            <button onClick={() => dispatch(signOut())}>Logout</button>
+          </>
+        ) : (
+          <>
+            <Signup to={`/signup`}>Sign Up</Signup>
+            <Signin to={`/signin`}>Sign In</Signin>
+          </>
+        )}
       </AuthContainer>
     </HEADER>
   );

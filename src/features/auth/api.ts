@@ -20,3 +20,18 @@ export const signInApi = async (signInUser: SignInFormValue) => {
     return error;
   }
 };
+
+interface Token {
+  headers: {
+    authorization: string;
+  };
+}
+
+export const getUserByToken = async (headers: Token) => {
+  try {
+    const response = await axios.get('/api/auth', headers);
+    return { data: response.data, status: response.status };
+  } catch (error: any) {
+    return error;
+  }
+};

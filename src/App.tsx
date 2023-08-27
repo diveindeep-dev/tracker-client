@@ -1,5 +1,7 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUser } from './features/auth/slice';
 import Layout from './layouts';
 import Index from './pages';
 import SignUp from './pages/auth/SignUp';
@@ -7,14 +9,31 @@ import SignIn from './pages/auth/SignIn';
 import GlobalStyle from './styles/GlobalStyle';
 
 function App() {
+  const dispatch = useDispatch<AppDispatch>();
+  const isAuthenticated = useSelector(
+    (state: State) => state.auth.isAuthenticated,
+  );
+
+  useEffect(() => {
+    if (localStorage.token) {
+      dispatch(fetchUser());
+    }
+  }, []);
+
   return (
     <div className="App">
       <GlobalStyle />
       <Layout>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route
+            path="/signup"
+            element={isAuthenticated ? <Navigate replace to="/" /> : <SignUp />}
+          />
+          <Route
+            path="/signin"
+            element={isAuthenticated ? <Navigate replace to="/" /> : <SignIn />}
+          />
         </Routes>
       </Layout>
     </div>

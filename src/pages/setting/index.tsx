@@ -24,7 +24,7 @@ const Right = styled.section`
 const Error = styled.div`
   text-align: right;
   padding: 0 5px;
-  color: ${colorAll.red};
+  color: ${colorAll.light.red};
   font-family: ${fontAll.body};
 `;
 
@@ -64,7 +64,7 @@ const Name = styled.div`
 `;
 
 const Id = styled.div`
-  color: ${colorAll.grey};
+  color: ${colorAll.light.grey};
   font-family: ${fontAll.main};
   font-size: 0.9rem;
 `;

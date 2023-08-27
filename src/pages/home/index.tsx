@@ -2,6 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { getTrackerListByPageApi } from '../../features/tracker/api';
 import NewTracker from '../../components/Tracker/New';
 import Tracker from '../../components/Tracker';
+import styled from 'styled-components';
+import { fontAll } from '../../styles/Variables';
+import { flexCenter } from '../../styles/Mixin';
+
+const Div = styled.div`
+  min-height: 200px;
+  ${flexCenter}
+  font-family: ${fontAll.body};
+`;
 
 function Home() {
   const [trackerList, setTrackerList] = useState<Tracker[]>([]);
@@ -48,7 +57,7 @@ function Home() {
     <div>
       <NewTracker />
       <div>{trackers}</div>
-      <div ref={setTarget}>You're up to date</div>
+      <Div ref={setTarget}>You're up to date</Div>
     </div>
   );
 }

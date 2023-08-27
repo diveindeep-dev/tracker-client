@@ -23,7 +23,7 @@ const LAYOUT = styled.div`
     grid-template-areas:
       'nav header'
       'nav main'
-      'footer footer';
+      'nav footer';
   }
 
   ${media.mobile} {

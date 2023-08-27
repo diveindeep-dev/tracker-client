@@ -69,6 +69,8 @@ const Div = styled.div`
   top: 0;
   height: 100vh;
   border-right: 1px solid ${colorAll.line};
+  background-color: ${colorAll.back};
+  z-index: 100;
 
   ${media.mobile} {
     border-top: 1px solid ${colorAll.line};
@@ -79,7 +81,6 @@ const Div = styled.div`
     top: auto;
     width: 100%;
     height: 80px;
-    background-color: #ffffff;
   }
 `;
 

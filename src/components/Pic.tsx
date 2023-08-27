@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { flexCenter, media } from '../styles/Mixin';
+import { circle, flexCenter, media } from '../styles/Mixin';
 
 interface EmojiProps {
   emoji: string;
@@ -14,9 +14,7 @@ interface StyleProps {
 }
 
 const Div = styled.div<StyleProps>`
-  width: ${({ size }) => size}px;
-  height: ${({ size }) => size}px;
-  border-radius: 100%;
+  ${({ size }) => circle(size)}
   ${flexCenter}
   padding-top: ${({ size }) => size / 13}px;
   font-size: ${({ size }) => (size / 5) * 3}px;

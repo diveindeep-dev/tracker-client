@@ -65,7 +65,7 @@ const EDIT = styled.div`
   h2 {
     display: flex;
     align-items: center;
-    color: ${colorAll.grey};
+    color: ${colorAll.light.grey};
     font-family: ${fontAll.main};
     font-weight: 900;
     svg {

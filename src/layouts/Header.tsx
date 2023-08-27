@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from '../features/auth/slice';
 import Logo from './Logo';
+import Pic from '../components/Pic';
 import styled from 'styled-components';
 import { flexCenter, hoverButton, media } from '../styles/Mixin';
-import { colorAll } from '../styles/Variables';
+import { colorAll, fontAll } from '../styles/Variables';
 
 const LogoWrap = styled.div`
   display: none;
@@ -13,6 +14,23 @@ const LogoWrap = styled.div`
   ${media.mobile} {
     display: flex;
   }
+`;
+
+const Name = styled.div`
+  padding: 0 10px;
+  font-family: ${fontAll.logo};
+`;
+
+const SettingLink = styled(Link)`
+  ${flexCenter}
+`;
+
+const Logout = styled.button`
+  ${hoverButton(`${colorAll.light.grey}`)}
+  padding: 5px 10px;
+  margin: 0 5px;
+  line-height: 1;
+  font-size: 1rem;
 `;
 
 const Signin = styled(Link)`
@@ -56,8 +74,15 @@ function Header() {
       <AuthContainer>
         {signInUser ? (
           <>
-            <div>{signInUser.name}</div>
-            <button onClick={() => dispatch(signOut())}>Logout</button>
+            <SettingLink to={'/setting'}>
+              <Pic
+                emoji={signInUser.emoji}
+                color={signInUser.color}
+                size={30}
+              />
+              <Name>{signInUser.name}</Name>
+            </SettingLink>
+            <Logout onClick={() => dispatch(signOut())}>Log Out</Logout>
           </>
         ) : (
           <>

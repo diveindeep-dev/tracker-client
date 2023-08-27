@@ -8,3 +8,12 @@ export const newTrackerApi = async (data: NewTrackerFormValue) => {
     return error.response;
   }
 };
+
+export const getTrackerListByPageApi = async (page: number) => {
+  try {
+    const response = await axios.get(`/api/tracker/list/${page}`);
+    return { data: response.data, status: response.status };
+  } catch (error: any) {
+    return error.response;
+  }
+};

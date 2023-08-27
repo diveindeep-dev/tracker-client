@@ -6,6 +6,7 @@ import Layout from './layouts';
 import Index from './pages';
 import SignUp from './pages/auth/SignUp';
 import SignIn from './pages/auth/SignIn';
+import Setting from './pages/setting';
 import GlobalStyle from './styles/GlobalStyle';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
             path="/signin"
             element={isAuthenticated ? <Navigate replace to="/" /> : <SignIn />}
           />
+          <Route path="/setting" element={<Setting />} />
         </Routes>
       </Layout>
     </div>

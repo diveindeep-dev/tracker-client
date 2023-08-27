@@ -1,5 +1,6 @@
 import React, { FormEvent } from 'react';
-import { signInApi } from '../../featuers/auth/api';
+import { useNavigate } from 'react-router-dom';
+import { signInApi } from '../../features/auth/api';
 import useForm from '../../hooks/useForm';
 import { signValidation } from '../../utils/regex';
 
@@ -9,7 +10,10 @@ const initialValue: SignInFormValue = {
 };
 
 function SignIn() {
-  const { values, handleChange, error, setError } = useForm({ initialValue });
+  const navigate = useNavigate();
+  const { values, handleChange, error, setError, resetValues } = useForm({
+    initialValue,
+  });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,7 +26,13 @@ function SignIn() {
     const result = await signInApi(signInUser);
 
     if (result) {
-      // api 응답이 있을 시
+      if (result.status === 200) {
+        localStorage.setItem('token', result.data.token);
+        navigate('/');
+      } else {
+        setError(result.data.message);
+        resetValues();
+      }
     } else {
       setError('서버가 불안정합니다. 잠시후 다시 시도해주세요.');
     }

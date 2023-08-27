@@ -7,7 +7,7 @@ export const signUpApi = async (newUser: SignUpFormValue) => {
   try {
     const res = await axios.post('/api/auth/signup', newUser);
     return { data: res.data, status: res.status };
-  } catch (error) {
+  } catch (error: any) {
     return error;
   }
 };
@@ -16,7 +16,7 @@ export const signInApi = async (signInUser: SignInFormValue) => {
   try {
     const res = await axios.post('/api/auth/signin', signInUser);
     return { data: res.data, status: res.status };
-  } catch (error) {
+  } catch (error: any) {
     return error;
   }
 };

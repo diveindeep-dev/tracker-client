@@ -1,5 +1,6 @@
 import React, { FormEvent } from 'react';
-import { signUpApi } from '../../featuers/auth/api';
+import { useNavigate } from 'react-router-dom';
+import { signUpApi } from '../../features/auth/api';
 import useForm from '../../hooks/useForm';
 import { signValidation } from '../../utils/regex';
 import { getRandomColor, getRandomEmoji } from '../../utils/random';
@@ -12,7 +13,10 @@ const initialValue: SignUpValidationValue = {
 };
 
 function SignUp() {
-  const { values, handleChange, error, setError } = useForm({ initialValue });
+  const navigate = useNavigate();
+  const { values, handleChange, error, setError, resetValues } = useForm({
+    initialValue,
+  });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,9 +37,14 @@ function SignUp() {
     const result = await signUpApi(newUser);
 
     if (result) {
-      // api 응답이 있을 시
+      if (result.status === 201) {
+        navigate('/signin');
+      } else {
+        setError(result.data.message);
+        resetValues();
+      }
     } else {
-      setError('서버가 불안정합니다. 잠시후 다시 시도해주세요.');
+      setError(`서버가 불안정합니다. 다시 시도해주세요.`);
     }
   };
 

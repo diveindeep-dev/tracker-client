@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { isToday } from 'date-fns';
+import { isPast, isToday } from 'date-fns';
 import { HiArrowUpRight } from 'react-icons/hi2';
 import styled, { css } from 'styled-components';
 import { hoverButton } from '../styles/Mixin';
 import { colorAll, fontAll } from '../styles/Variables';
+import Heart from './Heart';
 
 interface ScheduleProps {
   schedules: ScheduleFull[];
   isSignedUser: boolean;
   handleDone: (id: string) => Promise<void>;
+  isTag?: boolean;
 }
 
 interface StyleProps {
@@ -25,6 +27,16 @@ const Text = styled.div<StyleProps>`
       text-decoration: line-through;
       color: ${colorAll.light.grey};
     `};
+`;
+
+const Status = styled.div<StyleProps>`
+  padding: 3px 5px;
+  margin: 0 12px;
+  font-size: 0.8rem;
+  font-family: ${fontAll.logo};
+  border: 1px solid ${({ color }) => color};
+  border-radius: 5px;
+  color: ${({ color }) => color};
 `;
 
 const LINK = styled(Link)`
@@ -61,12 +73,25 @@ const SCHEDULE = styled.div`
 `;
 
 function Schedules(props: ScheduleProps) {
-  const { schedules, isSignedUser, handleDone } = props;
+  const { schedules, isSignedUser, handleDone, isTag = false } = props;
 
   const scheduleList = schedules.map((schedule: ScheduleFull, i: number) => {
     const { _id, tracker, isDone, date } = schedule;
     const theDate = new Date(`${date}T23:59:59`);
     const toggleButtonText = isDone ? 'UNDO' : 'DONE';
+
+    const status = isDone
+      ? 'COMPLETED'
+      : isPast(theDate)
+      ? 'EXPIRED'
+      : isToday(theDate) && 'TODAY';
+
+    const color =
+      status === 'COMPLETED'
+        ? `${colorAll.light.blue}`
+        : status === 'EXPIRED'
+        ? `${colorAll.light.grey}`
+        : `${colorAll.light.red}`;
 
     return (
       <SCHEDULE key={i}>
@@ -77,6 +102,7 @@ function Schedules(props: ScheduleProps) {
               <HiArrowUpRight />
             </LINK>
           )}
+          {isTag && status && <Status color={color}>{status}</Status>}
         </TitleContainer>
         <Container>
           {isSignedUser && isToday(theDate) && (
@@ -84,6 +110,7 @@ function Schedules(props: ScheduleProps) {
               {toggleButtonText}
             </Button>
           )}
+          <Heart />
         </Container>
       </SCHEDULE>
     );

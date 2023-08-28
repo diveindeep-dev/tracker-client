@@ -16,6 +16,7 @@ function Home() {
   const [trackerList, setTrackerList] = useState<Tracker[]>([]);
   const [page, setPage] = useState<number>(1);
   const [target, setTarget] = useState<HTMLDivElement | null>(null);
+  const [reload, setReload] = useState<boolean>(false);
 
   const getListSet = async () => {
     const { status, data } = await getTrackerListByPageApi(page);
@@ -23,7 +24,13 @@ function Home() {
       if (target && data.trackers.length < 5) {
         setTarget(null);
       }
-      setTrackerList((prev) => [...prev, ...data.trackers]);
+
+      if (reload) {
+        setTrackerList(data.trackers);
+        setReload(false);
+      } else {
+        setTrackerList((prev) => [...prev, ...data.trackers]);
+      }
     }
   };
 
@@ -49,9 +56,16 @@ function Home() {
     return () => observer && observer.disconnect();
   }, [target]);
 
+  useEffect(() => {
+    if (reload) {
+      setPage(1);
+      getListSet();
+    }
+  }, [reload]);
+
   return (
     <div>
-      <NewTracker />
+      <NewTracker setReload={setReload} />
       <TrackerList list={trackerList} />
       <Div ref={setTarget}>You're up to date</Div>
     </div>

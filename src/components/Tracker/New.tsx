@@ -1,7 +1,9 @@
 import React, {
   ChangeEvent,
+  Dispatch,
   FormEvent,
   Fragment,
+  SetStateAction,
   useEffect,
   useState,
 } from 'react';
@@ -23,6 +25,10 @@ import {
 } from '../../styles/Track';
 import { circle, hoverButton, media, postContainer } from '../../styles/Mixin';
 import { colorAll, fontAll } from '../../styles/Variables';
+
+interface NewProps {
+  setReload: Dispatch<SetStateAction<boolean>>;
+}
 
 interface ByteProps {
   $byte: number;
@@ -202,7 +208,7 @@ const initialValue: NewTrackerFormValue = {
 };
 const initialUser = { color: getRandomColor(), emoji: getRandomEmoji() };
 
-function NewTracker() {
+function NewTracker({ setReload }: NewProps) {
   const signedUser = useSelector((state: State) => state.auth.signInUser);
   const [user, setUser] = useState(initialUser);
   const { values, setValues, handleChange, resetValues, setError, error } =
@@ -305,6 +311,7 @@ function NewTracker() {
         resetValues();
         setTagString('');
         setCheckedDate([]);
+        setReload(true);
       } else {
         setError(`다시 시도해주세요.`);
       }

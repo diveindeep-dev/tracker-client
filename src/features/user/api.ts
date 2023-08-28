@@ -8,7 +8,7 @@ export const editProfileApi = async (
     const res = await axios.put(`/api/user/edit/${id}`, editedValue);
     return { data: res.data, status: res.status };
   } catch (error: any) {
-    return error;
+    return error.response;
   }
 };
 
@@ -22,7 +22,7 @@ export const getUserByProfileIdApi = async (
     });
     return { data: res.data, status: res.status };
   } catch (error: any) {
-    return error;
+    return error.response;
   }
 };
 
@@ -31,6 +31,6 @@ export const toggleDoneApi = async (scheduleId: string) => {
     const res = await axios.put(`/api/schedule/done/${scheduleId}`);
     return { data: res.data, status: res.status };
   } catch (error: any) {
-    return error;
+    return error.response;
   }
 };

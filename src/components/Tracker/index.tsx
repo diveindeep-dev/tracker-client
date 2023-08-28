@@ -80,8 +80,18 @@ const Container = styled.div`
   padding: 5px 10px;
 `;
 
+const LinkTracker = styled(Link)`
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`;
+
 const Div = styled.div`
   ${postContainer}
+  position: relative;
 `;
 
 function Tracker({ tracker }: TrackerProps) {
@@ -102,6 +112,7 @@ function Tracker({ tracker }: TrackerProps) {
 
   return (
     <Div>
+      <LinkTracker to={`/tracker/${tracker._id}`} />
       <Pic emoji={user.emoji} color={user.color} size={50} />
       <Container>
         <User to={`/profile/${user.profileId}`}>

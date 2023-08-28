@@ -8,6 +8,7 @@ import SignUp from './pages/auth/SignUp';
 import SignIn from './pages/auth/SignIn';
 import Home from './pages/home';
 import Profile from './pages/profile';
+import Tracker from './pages/tracker';
 import Setting from './pages/setting';
 import GlobalStyle from './styles/GlobalStyle';
 
@@ -39,6 +40,7 @@ function App() {
             path="/signin"
             element={isAuthenticated ? <Navigate replace to="/home" /> : <SignIn />}
           />
+          <Route path="/tracker/:trackerId" element={<Tracker />} />
           <Route path="/setting" element={<Setting />} />
         </Routes>
       </Layout>

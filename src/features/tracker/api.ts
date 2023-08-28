@@ -17,3 +17,12 @@ export const getTrackerListByPageApi = async (page: number) => {
     return error.response;
   }
 };
+
+export const getTrackerById = async (trackerId: string) => {
+  try {
+    const response = await axios.get(`/api/tracker/${trackerId}`);
+    return { data: response.data, status: response.status };
+  } catch (error: any) {
+    return error.response;
+  }
+};

@@ -1,16 +1,18 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { circle, flexCenter, media } from '../styles/Mixin';
 
 interface EmojiProps {
   emoji: string;
   color: string;
   size: number;
+  isHover?: boolean;
 }
 
 interface StyleProps {
   color: string;
   size: number;
+  $isHover?: boolean;
 }
 
 const Div = styled.div<StyleProps>`
@@ -27,14 +29,18 @@ const Div = styled.div<StyleProps>`
     font-size: ${({ size }) => ((size * 0.9) / 5) * 3}px;
   }
 
-  &:hover {
-    filter: brightness(85%);
-  }
+  ${({ $isHover }) =>
+    $isHover &&
+    css`
+      &:hover {
+        filter: brightness(85%);
+      }
+    `}
 `;
 
-function Pic({ emoji, color, size }: EmojiProps) {
+function Pic({ emoji, color, size, isHover = true }: EmojiProps) {
   return (
-    <Div color={color} size={size}>
+    <Div color={color} size={size} $isHover={isHover}>
       {emoji}
     </Div>
   );

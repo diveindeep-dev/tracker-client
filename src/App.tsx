@@ -7,6 +7,7 @@ import Index from './pages';
 import SignUp from './pages/auth/SignUp';
 import SignIn from './pages/auth/SignIn';
 import Home from './pages/home';
+import Profile from './pages/profile';
 import Setting from './pages/setting';
 import GlobalStyle from './styles/GlobalStyle';
 
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/profile/:profileId" element={<Profile />} />
           <Route
             path="/signup"
             element={isAuthenticated ? <Navigate replace to="/home" /> : <SignUp />}

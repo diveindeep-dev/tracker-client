@@ -5,9 +5,23 @@ export const editProfileApi = async (
   editedValue: EditProfileFormValue,
 ) => {
   try {
-    const response = await axios.put(`/api/user/edit/${id}`, editedValue);
-    return { data: response.data, status: response.status };
+    const res = await axios.put(`/api/user/edit/${id}`, editedValue);
+    return { data: res.data, status: res.status };
   } catch (error: any) {
-    return error.response;
+    return error;
+  }
+};
+
+export const getUserByProfileIdApi = async (
+  profileId: string,
+  signedId: string,
+) => {
+  try {
+    const res = await axios.post(`/api/user/${profileId}`, {
+      signed_id: signedId,
+    });
+    return { data: res.data, status: res.status };
+  } catch (error: any) {
+    return error;
   }
 };

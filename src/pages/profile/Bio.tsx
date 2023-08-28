@@ -4,9 +4,10 @@ import Pic from '../../components/Pic';
 import { colorAll, fontAll } from '../../styles/Variables';
 import { Link } from 'react-router-dom';
 import { circle, hoverButton, media } from '../../styles/Mixin';
+import { getRandomColor, getRandomEmoji } from '../../utils/random';
 
 interface BioProps {
-  bio: Bio;
+  bio: Bio | null;
   isSignedUser: boolean;
 }
 
@@ -75,7 +76,14 @@ const Div = styled.div`
 `;
 
 function Bio({ bio, isSignedUser }: BioProps) {
-  const { name, profileId, emoji, color } = bio;
+  const notExist: Bio = {
+    profileId: 'null',
+    name: 'null',
+    color: getRandomColor(),
+    emoji: getRandomEmoji(),
+  };
+  const user = bio || notExist;
+  const { name, profileId, emoji, color } = user;
 
   return (
     <Div>

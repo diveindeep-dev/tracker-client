@@ -3,8 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchParamsUser } from '../../features/user/slice';
 import Bio from './Bio';
-import Tracker from '../../components/Tracker';
-import { getRandomColor, getRandomEmoji } from '../../utils/random';
+import TrackerList from '../../components/Tracker/TrackerList';
 
 function Profile() {
   const dispatch = useDispatch<AppDispatch>();
@@ -19,24 +18,17 @@ function Profile() {
     }
   }, [signedId, profileId]);
 
-  const notExist: Bio = {
-    profileId: 'null',
-    name: 'null',
-    color: getRandomColor(),
-    emoji: getRandomEmoji(),
-  };
+  const isBio: boolean = paramsUser.bio;
 
   return (
     <div>
-      {paramsUser.bio ? (
-        <>
-          <Bio bio={paramsUser.bio} isSignedUser={paramsUser.isSignedUser} />
-        </>
+      <Bio bio={paramsUser.bio} isSignedUser={paramsUser.isSignedUser} />
+      {isBio ? (
+        <div>
+          <TrackerList list={paramsUser.trackers} />
+        </div>
       ) : (
-        <>
-          <Bio bio={notExist} isSignedUser={false} />
-          <div>This user doesn't exist.</div>
-        </>
+        <div>This user doesn't exist.</div>
       )}
     </div>
   );

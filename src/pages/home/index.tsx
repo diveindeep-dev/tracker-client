@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getTrackerListByPageApi } from '../../features/tracker/api';
 import NewTracker from '../../components/Tracker/New';
-import Tracker from '../../components/Tracker';
+import TrackerList from '../../components/Tracker/TrackerList';
 import styled from 'styled-components';
 import { fontAll } from '../../styles/Variables';
 import { flexCenter } from '../../styles/Mixin';
@@ -49,14 +49,10 @@ function Home() {
     return () => observer && observer.disconnect();
   }, [target]);
 
-  const trackers = trackerList.map((tracker: Tracker, i: number) => {
-    return <Tracker key={i} tracker={tracker} />;
-  });
-
   return (
     <div>
       <NewTracker />
-      <div>{trackers}</div>
+      <TrackerList list={trackerList} />
       <Div ref={setTarget}>You're up to date</Div>
     </div>
   );

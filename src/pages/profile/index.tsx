@@ -1,30 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getUserByProfileIdApi } from '../../features/user/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchParamsUser } from '../../features/user/slice';
 import Bio from './Bio';
+import Tracker from '../../components/Tracker';
 import { getRandomColor, getRandomEmoji } from '../../utils/random';
 
 function Profile() {
+  const dispatch = useDispatch<AppDispatch>();
   const { profileId } = useParams();
   const signedId = useSelector((state: State) => state.auth.signInUser?._id);
-  const [paramsBio, setParamsBio] = useState<Bio | null>();
-  const [isSignedUser, setIsSignedUser] = useState<boolean>(false);
+  const paramsUser = useSelector((state: State) => state.profile);
 
   useEffect(() => {
-    if (profileId && signedId) {
-      const getUser = async () => {
-        const result = await getUserByProfileIdApi(profileId, signedId);
-        if (result.status === 200) {
-          setParamsBio(result.data.bio);
-          setIsSignedUser(result.data.isSigned);
-        } else {
-          setParamsBio(null);
-          setIsSignedUser(false);
-        }
-      };
-
-      getUser();
+    if (profileId) {
+      const paramsUserValue: ParamsUserValue = { profileId, signedId };
+      dispatch(fetchParamsUser(paramsUserValue));
     }
   }, [signedId, profileId]);
 
@@ -37,8 +28,10 @@ function Profile() {
 
   return (
     <div>
-      {paramsBio ? (
-        <Bio bio={paramsBio} isSignedUser={isSignedUser} />
+      {paramsUser.bio ? (
+        <>
+          <Bio bio={paramsUser.bio} isSignedUser={paramsUser.isSignedUser} />
+        </>
       ) : (
         <>
           <Bio bio={notExist} isSignedUser={false} />

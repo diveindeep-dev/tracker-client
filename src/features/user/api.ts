@@ -13,13 +13,22 @@ export const editProfileApi = async (
 };
 
 export const getUserByProfileIdApi = async (
-  profileId: string,
-  signedId: string,
+  paramsUserValue: ParamsUserValue,
 ) => {
   try {
+    const { profileId, signedId } = paramsUserValue;
     const res = await axios.post(`/api/user/${profileId}`, {
       signed_id: signedId,
     });
+    return { data: res.data, status: res.status };
+  } catch (error: any) {
+    return error;
+  }
+};
+
+export const toggleDoneApi = async (scheduleId: string) => {
+  try {
+    const res = await axios.put(`/api/schedule/done/${scheduleId}`);
     return { data: res.data, status: res.status };
   } catch (error: any) {
     return error;

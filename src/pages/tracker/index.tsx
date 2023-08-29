@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
-import { IoIosMore } from 'react-icons/io';
-import { getTrackerById } from '../../features/tracker/api';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { IoIosMore, IoIosTrash } from 'react-icons/io';
+import {
+  getTrackerByIdApi,
+  removeTrackerApi,
+} from '../../features/tracker/api';
 import { toggleDoneApi } from '../../features/user/api';
 import Pic from '../../components/Pic';
 import Track from '../../components/Tracker/Track';
@@ -10,10 +13,14 @@ import Schedules from '../../components/Schedules';
 import Tags from '../../components/Tags';
 import ExternalLink from '../../components/ExternalLink';
 import { make2week } from '../../utils';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { TRACKS } from '../../styles/Track';
-import { flexCenter } from '../../styles/Mixin';
+import { circle, flexCenter, hoverButton } from '../../styles/Mixin';
 import { colorAll, fontAll } from '../../styles/Variables';
+
+interface StyleProps {
+  $isOpen: boolean;
+}
 
 const Detail = styled.div`
   padding: 30px 0;
@@ -30,9 +37,53 @@ const Text = styled.div`
   font-family: ${fontAll.body};
 `;
 
-const Icon = styled.div`
+const Back = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+`;
+
+const DelButton = styled.button`
   ${flexCenter}
-  font-size: 1.3rem;
+  ${hoverButton(`${colorAll.light.red}`)}
+  color: ${colorAll.light.red};
+  font-size: 1rem;
+  padding: 5px 10px;
+  svg {
+    font-size: 1.3rem;
+  }
+`;
+
+const Modal = styled.div`
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: #ffffff;
+  border-radius: 5px;
+  z-index: 51;
+`;
+
+const Icon = styled.div<StyleProps>`
+  ${circle(35)}
+  font-size: 1.5rem;
+
+  ${({ $isOpen }) =>
+    $isOpen &&
+    css`
+      background-color: ${colorAll.line};
+    `};
+
+  &:hover {
+    cursor: pointer;
+    background-color: ${colorAll.line};
+  }
+`;
+
+const Dots = styled.div`
+  position: relative;
 `;
 
 const Name = styled.div`
@@ -94,14 +145,16 @@ const Div = styled.div`
 
 function Tracker() {
   const { trackerId } = useParams();
+  const navigate = useNavigate();
   const signedId = useSelector((state: State) => state.auth.signInUser?._id);
   const [tracker, setTracker] = useState<Tracker>();
   const [isSignedUser, setIsSignedUser] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (trackerId) {
       const getTrackerInfo = async () => {
-        const { status, data } = await getTrackerById(trackerId);
+        const { status, data } = await getTrackerByIdApi(trackerId);
         if (status === 200) {
           setTracker(data.tracker);
           setIsSignedUser(data.tracker.user._id === signedId);
@@ -131,6 +184,13 @@ function Tracker() {
     );
   });
 
+  const handleDelete = async (trackerId: string) => {
+    const { status } = await removeTrackerApi(trackerId);
+    if (status === 200) {
+      navigate('/home');
+    }
+  };
+
   return (
     <Div>
       <h2>Tracker</h2>
@@ -148,9 +208,24 @@ function Tracker() {
                 <Id>@{tracker.user.profileId}</Id>
               </UserText>
             </BioBox>
-            <Icon>
-              <IoIosMore />
-            </Icon>
+            {isSignedUser && (
+              <Dots>
+                <Icon onClick={() => setIsOpen(true)} $isOpen={isOpen}>
+                  <IoIosMore />
+                </Icon>
+                {isOpen && (
+                  <>
+                    <Back onClick={() => setIsOpen(false)} />
+                    <Modal>
+                      <DelButton onClick={() => handleDelete(tracker._id)}>
+                        <IoIosTrash />
+                        DELETE
+                      </DelButton>
+                    </Modal>
+                  </>
+                )}
+              </Dots>
+            )}
           </User>
           <Text>{tracker.text}</Text>
           <TRACKS>{makeTracks}</TRACKS>

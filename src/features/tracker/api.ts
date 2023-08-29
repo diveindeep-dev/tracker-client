@@ -18,10 +18,19 @@ export const getTrackerListByPageApi = async (page: number) => {
   }
 };
 
-export const getTrackerById = async (trackerId: string) => {
+export const getTrackerByIdApi = async (trackerId: string) => {
   try {
     const response = await axios.get(`/api/tracker/${trackerId}`);
     return { data: response.data, status: response.status };
+  } catch (error: any) {
+    return error.response;
+  }
+};
+
+export const removeTrackerApi = async (trackerId: string) => {
+  try {
+    const response = await axios.put(`/api/tracker/${trackerId}/remove/`);
+    return { status: response.status };
   } catch (error: any) {
     return error.response;
   }

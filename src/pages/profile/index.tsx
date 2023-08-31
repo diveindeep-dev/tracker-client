@@ -6,7 +6,7 @@ import {
   setSchedules,
   setTrackers,
 } from '../../features/user/slice';
-import { toggleDoneApi } from '../../features/user/api';
+import { cheerApi, toggleDoneApi } from '../../features/user/api';
 import TrackerList from '../../components/Tracker/TrackerList';
 import Bio from './Bio';
 import Today from './Today';
@@ -24,13 +24,22 @@ function Profile() {
     }
   }, [signedId, profileId]);
 
-  const isBio: boolean = paramsUser.bio;
+  const isBio: boolean = paramsUser.bio === null ? false : true;
 
   const handleDone = async (scheduleId: string) => {
     const { status, data } = await toggleDoneApi(scheduleId);
     if (status === 200) {
       dispatch(setSchedules(data.schedules));
       dispatch(setTrackers(data.trackers));
+    }
+  };
+
+  const handleCheer = async (scheduleId: string) => {
+    if (signedId) {
+      const { status, data } = await cheerApi(scheduleId, signedId);
+      if (status === 200) {
+        dispatch(setSchedules(data.schedules));
+      }
     }
   };
 
@@ -43,6 +52,7 @@ function Profile() {
             schedules={paramsUser.todaySchedules}
             isSignedUser={paramsUser.isSignedUser}
             handleDone={handleDone}
+            handleCheer={handleCheer}
           />
           <TrackerList list={paramsUser.trackers} />
         </div>

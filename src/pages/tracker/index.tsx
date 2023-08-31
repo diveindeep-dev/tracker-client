@@ -6,12 +6,13 @@ import {
   getTrackerByIdApi,
   removeTrackerApi,
 } from '../../features/tracker/api';
-import { toggleDoneApi } from '../../features/user/api';
+import { cheerApi, toggleDoneApi } from '../../features/user/api';
 import Pic from '../../components/Pic';
 import Track from '../../components/Tracker/Track';
 import Schedules from '../../components/Schedules';
 import Tags from '../../components/Tags';
 import ExternalLink from '../../components/ExternalLink';
+import Details from './Details';
 import { make2week } from '../../utils';
 import styled, { css } from 'styled-components';
 import { TRACKS } from '../../styles/Track';
@@ -21,6 +22,10 @@ import { colorAll, fontAll } from '../../styles/Variables';
 interface StyleProps {
   $isOpen: boolean;
 }
+
+const DetailTracks = styled.div`
+  padding: 30px;
+`;
 
 const Detail = styled.div`
   padding: 30px 0;
@@ -179,7 +184,7 @@ function Tracker() {
         day={day}
         order={i}
         schedules={tracker?.schedules || []}
-        color={tracker?.user.color}
+        color={tracker?.user.color || `${colorAll.main}`}
       />
     );
   });
@@ -188,6 +193,15 @@ function Tracker() {
     const { status } = await removeTrackerApi(trackerId);
     if (status === 200) {
       navigate('/home');
+    }
+  };
+
+  const handleCheer = async (scheduleId: string) => {
+    if (signedId) {
+      const { status, data } = await cheerApi(scheduleId, signedId);
+      if (status === 200) {
+        setTracker(data.tracker);
+      }
     }
   };
 
@@ -232,15 +246,17 @@ function Tracker() {
           {tracker.url && <ExternalLink link={tracker.url} />}
           <Tags tags={tracker.tags} />
           <Detail>
-            <div>
+            <Details cheers={tracker.cheers} signedId={signedId} />
+            <DetailTracks>
               <h3>All Tracks</h3>
               <Schedules
                 schedules={tracker.schedules}
                 isSignedUser={isSignedUser}
                 handleDone={handleDone}
+                handleCheer={handleCheer}
                 isTag={true}
               />
-            </div>
+            </DetailTracks>
           </Detail>
         </Container>
       ) : (

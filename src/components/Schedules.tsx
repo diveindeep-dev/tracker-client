@@ -2,15 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { isPast, isToday } from 'date-fns';
 import { HiArrowUpRight } from 'react-icons/hi2';
+import Heart from './Heart';
 import styled, { css } from 'styled-components';
 import { hoverButton } from '../styles/Mixin';
 import { colorAll, fontAll } from '../styles/Variables';
-import Heart from './Heart';
 
 interface ScheduleProps {
   schedules: ScheduleFull[];
   isSignedUser: boolean;
   handleDone: (id: string) => Promise<void>;
+  handleCheer: (id: string) => Promise<void>;
   isTag?: boolean;
 }
 
@@ -73,10 +74,16 @@ const SCHEDULE = styled.div`
 `;
 
 function Schedules(props: ScheduleProps) {
-  const { schedules, isSignedUser, handleDone, isTag = false } = props;
+  const {
+    schedules,
+    isSignedUser,
+    handleDone,
+    handleCheer,
+    isTag = false,
+  } = props;
 
   const scheduleList = schedules.map((schedule: ScheduleFull, i: number) => {
-    const { _id, tracker, isDone, date } = schedule;
+    const { _id, tracker, isDone, date, cheers } = schedule;
     const theDate = new Date(`${date}T23:59:59`);
     const toggleButtonText = isDone ? 'UNDO' : 'DONE';
 
@@ -110,7 +117,7 @@ function Schedules(props: ScheduleProps) {
               {toggleButtonText}
             </Button>
           )}
-          <Heart />
+          <Heart cheeredId={_id} cheers={cheers} handleCheer={handleCheer} />
         </Container>
       </SCHEDULE>
     );

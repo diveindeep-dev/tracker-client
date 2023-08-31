@@ -34,3 +34,14 @@ export const toggleDoneApi = async (scheduleId: string) => {
     return error.response;
   }
 };
+
+export const cheerApi = async (scheduleId: string, signedId: string) => {
+  try {
+    const response = await axios.put(`/api/schedule/cheer/${scheduleId}`, {
+      signedId: signedId,
+    });
+    return { data: response.data, status: response.status };
+  } catch (error: any) {
+    return error.response;
+  }
+};

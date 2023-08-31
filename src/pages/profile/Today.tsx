@@ -8,6 +8,7 @@ interface TodayProps {
   schedules: ScheduleFull[];
   isSignedUser: boolean;
   handleDone: (id: string) => Promise<void>;
+  handleCheer: (id: string) => Promise<void>;
 }
 
 const Text = styled.div`
@@ -26,7 +27,7 @@ const Div = styled.div`
 `;
 
 function Today(props: TodayProps) {
-  const { schedules, isSignedUser, handleDone } = props;
+  const { schedules, isSignedUser, handleDone, handleCheer } = props;
   const isSchedule = schedules.length > 0;
 
   return (
@@ -38,6 +39,7 @@ function Today(props: TodayProps) {
             schedules={schedules}
             isSignedUser={isSignedUser}
             handleDone={handleDone}
+            handleCheer={handleCheer}
           />
         ) : (
           <Text>오늘의 Tracker가 아직 없습니다.</Text>

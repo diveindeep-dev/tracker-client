@@ -10,6 +10,7 @@ import { cheerApi, toggleDoneApi } from '../../features/user/api';
 import TrackerList from '../../components/Tracker/TrackerList';
 import Bio from './Bio';
 import Today from './Today';
+import { EmptyBox } from '../../styles/Mixin';
 
 function Profile() {
   const dispatch = useDispatch<AppDispatch>();
@@ -57,7 +58,7 @@ function Profile() {
           <TrackerList list={paramsUser.trackers} />
         </div>
       ) : (
-        <div>This user doesn't exist.</div>
+        <EmptyBox>This user doesn't exist.</EmptyBox>
       )}
     </div>
   );

@@ -16,7 +16,7 @@ import Details from './Details';
 import { make2week } from '../../utils';
 import styled, { css } from 'styled-components';
 import { TRACKS } from '../../styles/Track';
-import { circle, flexCenter, hoverButton } from '../../styles/Mixin';
+import { EmptyBox, circle, flexCenter, hoverButton } from '../../styles/Mixin';
 import { colorAll, fontAll } from '../../styles/Variables';
 
 interface StyleProps {
@@ -140,7 +140,6 @@ const Container = styled.div`
 const Div = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 90vh;
   padding: 20px 15px;
   h2 {
     padding: 0 5px;
@@ -260,7 +259,7 @@ function Tracker() {
           </Detail>
         </Container>
       ) : (
-        <div>존재하지 않는 Tracker입니다.</div>
+        <EmptyBox>존재하지 않는 Tracker입니다.</EmptyBox>
       )}
     </Div>
   );

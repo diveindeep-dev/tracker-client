@@ -1,5 +1,6 @@
 import React from 'react';
 import Tracker from '.';
+import { EmptyBox } from '../../styles/Mixin';
 
 interface TrackerListProps {
   list: Tracker[];
@@ -12,7 +13,11 @@ function TrackerList({ list }: TrackerListProps) {
     return <Tracker key={i} tracker={tracker} />;
   });
 
-  return <div>{isTracker ? trackers : 'Tracker가 없습니다.'}</div>;
+  return (
+    <div>
+      {isTracker ? trackers : <EmptyBox>Tracker 정보가 없습니다.</EmptyBox>}
+    </div>
+  );
 }
 
 export default TrackerList;

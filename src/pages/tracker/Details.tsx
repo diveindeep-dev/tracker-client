@@ -7,6 +7,7 @@ import { colorAll, fontAll } from '../../styles/Variables';
 interface DetailsProps {
   cheers: User[];
   signedId: string | undefined;
+  count: number;
 }
 
 interface StyleProps {
@@ -37,7 +38,7 @@ const Div = styled.div`
   }
 `;
 
-function Details({ cheers, signedId }: DetailsProps) {
+function Details({ cheers, signedId, count }: DetailsProps) {
   const isCheered = cheers.length > 0;
   const isSignedUserInCheers = cheers.find((cheer) => cheer._id === signedId);
   const color = isSignedUserInCheers
@@ -51,7 +52,7 @@ function Details({ cheers, signedId }: DetailsProps) {
       </Icon>
       <Icon color={color}>
         {isSignedUserInCheers ? <IoHeart /> : <IoHeartOutline />}
-        <div>{isCheered && cheers.length}</div>
+        <div>{isCheered && count}</div>
       </Icon>
       <Icon>
         <AiOutlineLink />

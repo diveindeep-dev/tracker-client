@@ -236,7 +236,14 @@ function Tracker() {
           {tracker.url && <ExternalLink link={tracker.url} />}
           <Tags tags={tracker.tags} />
           <Detail>
-            <Details cheers={tracker.cheers} signedId={signedId} />
+            <Details
+              cheers={tracker.cheers}
+              signedId={signedId}
+              count={
+                tracker.schedules.map((schedule) => schedule.cheers).flat(1)
+                  .length
+              }
+            />
             <DetailTracks>
               <h3>All Tracks</h3>
               <Schedules

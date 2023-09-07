@@ -8,14 +8,12 @@ import {
 } from '../../features/tracker/api';
 import { cheerApi, toggleDoneApi } from '../../features/user/api';
 import Pic from '../../components/Pic';
-import Track from '../../components/Tracker/Track';
+import Tracks from '../../components/Tracker/Tracks';
 import Schedules from '../../components/Schedules';
 import Tags from '../../components/Tags';
 import ExternalLink from '../../components/ExternalLink';
 import Details from './Details';
-import { make2week } from '../../utils';
 import styled, { css } from 'styled-components';
-import { TRACKS } from '../../styles/Track';
 import { EmptyBox, circle, flexCenter, hoverButton } from '../../styles/Mixin';
 import { colorAll, fontAll } from '../../styles/Variables';
 
@@ -175,19 +173,6 @@ function Tracker() {
     }
   };
 
-  const weekFromCratedDay = make2week(tracker?.created_at);
-  const makeTracks = weekFromCratedDay.map((day, i) => {
-    return (
-      <Track
-        key={i}
-        day={day}
-        order={i}
-        schedules={tracker?.schedules || []}
-        color={tracker?.user.color || `${colorAll.main}`}
-      />
-    );
-  });
-
   const handleDelete = async (trackerId: string) => {
     const { status } = await removeTrackerApi(trackerId);
     if (status === 200) {
@@ -241,7 +226,11 @@ function Tracker() {
             )}
           </User>
           <Text>{tracker.text}</Text>
-          <TRACKS>{makeTracks}</TRACKS>
+          <Tracks
+            startDate={tracker.created_at}
+            color={tracker.user.color}
+            schedules={tracker.schedules}
+          />
           {tracker.url && <ExternalLink link={tracker.url} />}
           <Tags tags={tracker.tags} />
           <Detail>

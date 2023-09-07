@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Pic from '../Pic';
-import Track from './Track';
+import Tracks from './Tracks';
 import Tags from '../Tags';
 import ExternalLink from '../ExternalLink';
-import { make2week } from '../../utils';
 import styled from 'styled-components';
-import { TRACKS } from '../../styles/Track';
 import { postContainer } from '../../styles/Mixin';
 import { colorAll, fontAll } from '../../styles/Variables';
 
@@ -48,6 +46,9 @@ const LinkTracker = styled(Link)`
   left: 0;
   width: 100%;
   height: 100%;
+  &:hover {
+    background-color: #d6d6d620;
+  }
 `;
 
 const Div = styled.div`
@@ -57,18 +58,6 @@ const Div = styled.div`
 
 function Tracker({ tracker }: TrackerProps) {
   const { user, text, created_at, schedules, url, tags } = tracker;
-  const weekFromCratedDay = make2week(created_at);
-  const makeTracks = weekFromCratedDay.map((day, i) => {
-    return (
-      <Track
-        key={i}
-        day={day}
-        order={i}
-        schedules={schedules}
-        color={user.color}
-      />
-    );
-  });
 
   return (
     <Div>
@@ -80,7 +69,11 @@ function Tracker({ tracker }: TrackerProps) {
           <span>@{user.profileId}</span>
         </User>
         <TEXT>{text}</TEXT>
-        <TRACKS>{makeTracks}</TRACKS>
+        <Tracks
+          startDate={created_at}
+          color={user.color}
+          schedules={schedules}
+        />
         {url && <ExternalLink link={url} />}
         <Tags tags={tags} />
       </Container>

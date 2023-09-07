@@ -14,7 +14,7 @@ import { colorAll } from '../../styles/Variables';
 interface TrackProps {
   day: string;
   order: number;
-  schedules: any;
+  schedules: Schedule[];
   color: string;
 }
 

@@ -29,12 +29,15 @@ export const profileSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchParamsUser.fulfilled, (state, action) => {
-      const { status, data } = action.payload;
-      if (status === 200) {
-        state.bio = data.bio;
-        state.isSignedUser = data.isSigned;
-        state.todaySchedules = data.schedules;
-        state.trackers = data.trackers;
+      const result = action.payload;
+      if (result) {
+        const { status, data } = result;
+        if (status === 200) {
+          state.bio = data.bio;
+          state.isSignedUser = data.isSigned;
+          state.todaySchedules = data.schedules;
+          state.trackers = data.trackers;
+        }
       } else {
         state.bio = null;
         state.isSignedUser = false;

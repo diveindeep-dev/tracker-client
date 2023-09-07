@@ -156,10 +156,12 @@ function Tracker() {
   useEffect(() => {
     if (trackerId) {
       const getTrackerInfo = async () => {
-        const { status, data } = await getTrackerByIdApi(trackerId);
-        if (status === 200) {
-          setTracker(data.tracker);
-          setIsSignedUser(data.tracker.user._id === signedId);
+        const result = await getTrackerByIdApi(trackerId);
+        if (result) {
+          if (result.status === 200) {
+            setTracker(result.data.tracker);
+            setIsSignedUser(result.data.tracker.user._id === signedId);
+          }
         }
       };
       getTrackerInfo();

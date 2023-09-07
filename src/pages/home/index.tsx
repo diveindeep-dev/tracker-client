@@ -11,17 +11,19 @@ function Home() {
   const [reload, setReload] = useState<boolean>(false);
 
   const getListSet = async () => {
-    const { status, data } = await getTrackerListByPageApi(page);
-    if (status === 200) {
-      if (target && data.trackers.length < 5) {
-        setTarget(null);
-      }
+    const result = await getTrackerListByPageApi(page);
+    if (result) {
+      if (result.status === 200) {
+        if (target && result.data.trackers.length < 5) {
+          setTarget(null);
+        }
 
-      if (reload) {
-        setTrackerList(data.trackers);
-        setReload(false);
-      } else {
-        setTrackerList((prev) => [...prev, ...data.trackers]);
+        if (reload) {
+          setTrackerList(result.data.trackers);
+          setReload(false);
+        } else {
+          setTrackerList((prev) => [...prev, ...result.data.trackers]);
+        }
       }
     }
   };

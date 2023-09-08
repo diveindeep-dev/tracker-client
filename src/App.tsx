@@ -10,6 +10,8 @@ import Home from './pages/home';
 import Profile from './pages/profile';
 import Tracker from './pages/tracker';
 import Setting from './pages/setting';
+import ProfileDescription from './pages/profile/Description';
+import TrackerDescription from './pages/tracker/Description';
 import GlobalStyle from './styles/GlobalStyle';
 
 function App() {
@@ -32,6 +34,7 @@ function App() {
           <Route path="/" element={<Index />} />
           <Route path="/home" element={<Home />} />
           <Route path="/profile/:profileId" element={<Profile />} />
+          <Route path="/profile" element={<ProfileDescription />} />
           <Route
             path="/signup"
             element={isAuthenticated ? <Navigate replace to="/home" /> : <SignUp />}
@@ -41,6 +44,7 @@ function App() {
             element={isAuthenticated ? <Navigate replace to="/home" /> : <SignIn />}
           />
           <Route path="/tracker/:trackerId" element={<Tracker />} />
+          <Route path="/tracker" element={<TrackerDescription />} />
           <Route path="/setting" element={<Setting />} />
         </Routes>
       </Layout>

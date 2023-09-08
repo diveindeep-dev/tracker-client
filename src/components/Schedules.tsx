@@ -13,6 +13,7 @@ interface ScheduleProps {
   handleDone: (id: string) => Promise<void>;
   handleCheer: (id: string) => Promise<void>;
   isTag?: boolean;
+  isSample?: boolean;
 }
 
 interface StyleProps {
@@ -80,6 +81,7 @@ function Schedules(props: ScheduleProps) {
     handleDone,
     handleCheer,
     isTag = false,
+    isSample,
   } = props;
 
   const scheduleList = schedules.map((schedule: ScheduleFull, i: number) => {
@@ -105,7 +107,7 @@ function Schedules(props: ScheduleProps) {
         <TitleContainer>
           <Text $isDone={isDone}>{tracker ? tracker.text : date}</Text>
           {tracker && (
-            <LINK to={`/tracker/${tracker._id}`}>
+            <LINK to={isSample ? `/tracker` : `/tracker/${tracker._id}`}>
               <HiArrowUpRight />
             </LINK>
           )}
@@ -117,7 +119,12 @@ function Schedules(props: ScheduleProps) {
               {toggleButtonText}
             </Button>
           )}
-          <Heart cheeredId={_id} cheers={cheers} handleCheer={handleCheer} />
+          <Heart
+            cheeredId={_id}
+            cheers={cheers}
+            handleCheer={handleCheer}
+            isSample={isSample}
+          />
         </Container>
       </SCHEDULE>
     );

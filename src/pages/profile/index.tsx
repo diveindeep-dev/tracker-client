@@ -46,9 +46,9 @@ function Profile() {
 
   return (
     <div>
-      <Bio bio={paramsUser.bio} isSignedUser={paramsUser.isSignedUser} />
       {isBio ? (
         <div>
+          <Bio bio={paramsUser.bio} isSignedUser={paramsUser.isSignedUser} />
           <Today
             schedules={paramsUser.todaySchedules}
             isSignedUser={paramsUser.isSignedUser}

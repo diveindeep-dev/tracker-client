@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Logo from './Logo';
 import styled from 'styled-components';
 import { media } from '../styles/Mixin';
@@ -85,6 +86,9 @@ const Div = styled.div`
 `;
 
 function Nav() {
+  const signInUser = useSelector((state: State) => state.auth.signInUser);
+  const profileId = signInUser ? `${signInUser.profileId}` : '';
+
   return (
     <Div>
       <LogoWrap>
@@ -99,7 +103,7 @@ function Nav() {
             </div>
           )}
         </ActiveLink>
-        <ActiveLink to={`/profile`}>
+        <ActiveLink to={`/profile/${profileId}`}>
           {({ isActive }) => (
             <div>
               {isActive ? <BsFillEmojiSmileFill /> : <BsEmojiNeutral />}

@@ -10,6 +10,7 @@ import { colorAll, fontAll } from '../../styles/Variables';
 
 interface TrackerProps {
   tracker: Tracker;
+  isSmaple?: boolean;
 }
 
 const User = styled(Link)`
@@ -56,12 +57,12 @@ const Div = styled.div`
   position: relative;
 `;
 
-function Tracker({ tracker }: TrackerProps) {
+function Tracker({ tracker, isSmaple = false }: TrackerProps) {
   const { user, text, created_at, schedules, url, tags } = tracker;
 
   return (
     <Div>
-      <LinkTracker to={`/tracker/${tracker._id}`} />
+      <LinkTracker to={isSmaple ? `/tracker` : `/tracker/${tracker._id}`} />
       <Pic emoji={user.emoji} color={user.color} size={50} />
       <Container>
         <User to={`/profile/${user.profileId}`}>

@@ -2,12 +2,12 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUser } from '../../features/auth/slice';
 import { editProfileApi } from '../../features/user/api';
+import { nameRegex } from '../../utils/regex';
 import useForm from '../../hooks/useForm';
 import Pic from '../../components/Pic';
 import Menu from './Menu';
 import Edit from './Edit';
-import { nameRegex } from '../../utils/regex';
-import { getRandomColor, getRandomEmoji } from '../../utils/random';
+import SettingDescription from './Description';
 import styled from 'styled-components';
 import { flexCenter, hoverButton, media } from '../../styles/Mixin';
 import { colorAll, fontAll } from '../../styles/Variables';
@@ -92,20 +92,12 @@ const Grid = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-template-areas: 'left right';
   width: 100%;
-  min-height: 85vh;
 `;
 
 const initialValue: EditProfileFormValue = {
   name: '',
   color: '',
   emoji: '',
-};
-
-const firstPic = {
-  emoji: getRandomEmoji(),
-  color: getRandomColor(),
-  name: 'guest',
-  profileId: 'guest',
 };
 
 function Setting() {
@@ -166,53 +158,43 @@ function Setting() {
     }
   };
 
-  const firstPicValue = signInUser
-    ? {
-        emoji: signInUser.emoji,
-        color: signInUser.color,
-        name: signInUser.name,
-        profileId: signInUser.profileId,
-      }
-    : firstPic;
-
   return (
     <div>
-      <Grid>
-        <Left>
-          <h1>SETTING</h1>
-          <Container>
-            <Pic
-              emoji={values.emoji || firstPicValue.emoji}
-              color={values.color || firstPicValue.color}
-              size={180}
+      {signInUser ? (
+        <Grid>
+          <Left>
+            <h1>SETTING</h1>
+            <Container>
+              <Pic
+                emoji={values.emoji || signInUser.emoji}
+                color={values.color || signInUser.color}
+                size={180}
+              />
+              <Name>{values.name || signInUser.name}</Name>
+              <Id>@{signInUser.profileId}</Id>
+            </Container>
+            <Menu handleMenu={setMode} mode={mode} />
+            <Form onSubmit={handleSubmit}>
+              <Error>{error}</Error>
+              <SubmitButton type="submit" disabled={disabled}>
+                SAVE
+              </SubmitButton>
+            </Form>
+          </Left>
+          <Right>
+            <Edit
+              mode={mode}
+              values={values}
+              setValues={setValues}
+              handleChange={handleChange}
+              setError={setError}
+              setDisabled={setDisabled}
             />
-            <Name>{values.name || firstPicValue.name}</Name>
-            <Id>@{firstPicValue.profileId}</Id>
-          </Container>
-          <Menu handleMenu={setMode} mode={mode} />
-          <Form onSubmit={handleSubmit}>
-            <Error>
-              {!signInUser
-                ? 'Guest 페이지 입니다. 로그인하시면 나만의 프로필을 관리할 수 있습니다.'
-                : error}
-              {error}
-            </Error>
-            <SubmitButton type="submit" disabled={disabled}>
-              SAVE
-            </SubmitButton>
-          </Form>
-        </Left>
-        <Right>
-          <Edit
-            mode={mode}
-            values={values}
-            setValues={setValues}
-            handleChange={handleChange}
-            setError={setError}
-            setDisabled={setDisabled}
-          />
-        </Right>
-      </Grid>
+          </Right>
+        </Grid>
+      ) : (
+        <SettingDescription />
+      )}
     </div>
   );
 }

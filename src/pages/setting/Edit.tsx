@@ -42,11 +42,11 @@ const EmojiPicker = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding: 10px 5px;
-  max-height: 400px;
+  max-height: 350px;
   border: 1px solid ${colorAll.line};
   overflow-y: scroll;
   ${media.mobile} {
-    max-height: 350px;
+    max-height: 330px;
     ${Emoji} {
       font-family: 1.5rem;
     }

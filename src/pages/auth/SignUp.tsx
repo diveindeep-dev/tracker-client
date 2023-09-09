@@ -4,6 +4,7 @@ import { signUpApi } from '../../features/auth/api';
 import useForm from '../../hooks/useForm';
 import { signValidation } from '../../utils/regex';
 import { getRandomColor, getRandomEmoji } from '../../utils/random';
+import { Error, Form, FormDiv, SubmitButton, Wrap } from './SignIn';
 
 const initialValue: SignUpValidationValue = {
   profileId: '',
@@ -49,37 +50,55 @@ function SignUp() {
   };
 
   return (
-    <div>
+    <FormDiv>
       <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="profileId"
-          placeholder="ID"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="name"
-          placeholder="name"
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="password"
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="passwordConfirm"
-          placeholder="password confirm"
-          onChange={handleChange}
-        />
-        <div>{error}</div>
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
+      <Form onSubmit={handleSubmit}>
+        <Wrap>
+          <div>ID</div>
+          <input
+            type="text"
+            name="profileId"
+            value={values.profileId}
+            placeholder="ID"
+            onChange={handleChange}
+          />
+        </Wrap>
+        <Wrap>
+          <div>Name</div>
+          <input
+            type="text"
+            name="name"
+            value={values.name}
+            placeholder="name"
+            onChange={handleChange}
+          />
+        </Wrap>
+        <Wrap>
+          <div>Password</div>
+          <input
+            type="password"
+            name="password"
+            value={values.password}
+            placeholder="password"
+            onChange={handleChange}
+          />
+        </Wrap>
+        <Wrap>
+          <div>Password Confirm</div>
+          <input
+            type="password"
+            name="passwordConfirm"
+            value={values.passwordConfirm}
+            placeholder="password confirm"
+            onChange={handleChange}
+          />
+        </Wrap>
+        <Wrap>
+          <Error>{error}</Error>
+          <SubmitButton type="submit">Sign Up</SubmitButton>
+        </Wrap>
+      </Form>
+    </FormDiv>
   );
 }
 

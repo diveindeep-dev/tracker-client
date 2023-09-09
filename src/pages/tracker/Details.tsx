@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoHeartOutline, IoHeart } from 'react-icons/io5';
 import { AiOutlineRetweet, AiOutlineLink } from 'react-icons/ai';
 import styled from 'styled-components';
 import { colorAll, fontAll } from '../../styles/Variables';
+import { flexCenter } from '../../styles/Mixin';
 
 interface DetailsProps {
   cheers: User[];
@@ -14,9 +15,19 @@ interface StyleProps {
   color?: string;
 }
 
+const Copied = styled.div`
+  position: fixed;
+  bottom: 130px;
+  padding: 20px 30px;
+  font-family: ${fontAll.main};
+  color: #ffffff;
+  background-color: ${colorAll.main};
+  border-radius: 10px;
+  z-index: 200;
+`;
+
 const Icon = styled.div<StyleProps>`
-  display: flex;
-  align-items: center;
+  ${flexCenter}
   font-size: 1.3rem;
   color: ${({ color }) => color};
 
@@ -28,35 +39,69 @@ const Icon = styled.div<StyleProps>`
   }
 `;
 
+const CopyButton = styled.button`
+  ${Icon} {
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    &:hover {
+      color: ${colorAll.blue};
+      background-color: ${colorAll.bg.blue};
+    }
+  }
+`;
+
 const Div = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-around;
   padding: 15px 0;
   border-bottom: 1px solid ${colorAll.line};
   border-top: 1px solid ${colorAll.line};
-  ${Icon} {
-  }
 `;
 
 function Details({ cheers, signedId, count }: DetailsProps) {
+  const url = window.location.href;
+  const [isCopy, setIsCopy] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setIsCopy(false), 3000);
+  }, [isCopy]);
+
   const isCheered = cheers.length > 0;
   const isSignedUserInCheers = cheers.find((cheer) => cheer._id === signedId);
   const color = isSignedUserInCheers
     ? isSignedUserInCheers.color
     : `${colorAll.light.red}`;
 
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setIsCopy(true);
+
+      return true;
+    } catch (error) {
+      setIsCopy(false);
+
+      return false;
+    }
+  };
+
   return (
     <Div>
-      <Icon>
+      <Icon color={`${colorAll.line}`}>
         <AiOutlineRetweet />
       </Icon>
       <Icon color={color}>
         {isSignedUserInCheers ? <IoHeart /> : <IoHeartOutline />}
         <div>{isCheered && count}</div>
       </Icon>
-      <Icon>
-        <AiOutlineLink />
-      </Icon>
+      <CopyButton onClick={() => handleCopy(url)}>
+        <Icon>
+          <AiOutlineLink />
+        </Icon>
+      </CopyButton>
+      {isCopy && <Copied>Copied to clipboard</Copied>}
     </Div>
   );
 }

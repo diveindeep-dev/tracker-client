@@ -142,3 +142,5 @@ export const guestSingleTracker = {
   ],
   updated_at: '2023-09-02T08:27:44.831Z',
 };
+
+export const fakeHandle = async (id: string) => {};

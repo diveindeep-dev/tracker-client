@@ -19,7 +19,8 @@ export const Mokup = styled.div`
   padding: 20px;
 
   ${media.mobile} {
-    padding: 10px;
+    scale: 98%;
+    padding: 0 10px;
   }
 `;
 
@@ -102,6 +103,10 @@ const Sub = styled.div`
 
 const FeatSection = styled.div`
   padding: 20px 10px 10px;
+
+  ${media.mobile} {
+    padding: 20px 5px;
+  }
 `;
 
 const Div = styled.div`
@@ -111,6 +116,10 @@ const Div = styled.div`
   h3 {
     font-family: ${fontAll.logo};
     padding: 20px 0;
+  }
+
+  ${media.mobile} {
+    padding: 20px 10px;
   }
 `;
 

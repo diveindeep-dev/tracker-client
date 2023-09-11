@@ -14,7 +14,7 @@ import { newTrackerApi } from '../../features/tracker/api';
 import useForm from '../../hooks/useForm';
 import Pic from '../Pic';
 import { calculateByte, make2week } from '../../utils';
-import { getRandomColor, getRandomEmoji } from '../../utils/random';
+import { guestBio } from '../../config/guestData';
 import styled from 'styled-components';
 import {
   TRACKS,
@@ -206,7 +206,7 @@ const initialValue: NewTrackerFormValue = {
   user: '',
   schedule: [],
 };
-const initialUser = { color: getRandomColor(), emoji: getRandomEmoji() };
+const initialUser = { color: guestBio.color, emoji: guestBio.emoji };
 
 function NewTracker({ setReload }: NewProps) {
   const signedUser = useSelector((state: State) => state.auth.signInUser);

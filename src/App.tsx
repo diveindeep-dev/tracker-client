@@ -12,6 +12,7 @@ import Tracker from './pages/tracker';
 import Setting from './pages/setting';
 import ProfileDescription from './pages/profile/Description';
 import TrackerDescription from './pages/tracker/Description';
+import TagPage from './pages/Tag';
 import NotFound from './pages/NotFound';
 import GlobalStyle from './styles/GlobalStyle';
 
@@ -47,6 +48,7 @@ function App() {
           <Route path="/tracker/:trackerId" element={<Tracker />} />
           <Route path="/tracker" element={<TrackerDescription />} />
           <Route path="/setting" element={<Setting />} />
+          <Route path="/tags/:tag" element={<TagPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>

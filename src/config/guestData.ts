@@ -51,7 +51,7 @@ export const guestSingleTrackerList = [
     _id: 'tracekrSample00',
     user: { _id: 'guest', ...guestBio },
     text: '러닝 5km',
-    tags: ['매일매일'],
+    tags: [{ _id: '', text: '매일매일' }],
     cheers: [{ _id: 'guest1', ...guestBio }],
     created_at: calDay(-3),
     schedules: [
@@ -102,7 +102,7 @@ export const guestSingleTrackerList = [
     _id: 'tracekrSample02',
     user: { _id: 'guest', ...guestBio },
     text: '알고리즘',
-    tags: ['코딩'],
+    tags: [{ _id: '', text: '코딩' }],
     cheers: [{ _id: 'guest1', ...guestBio }],
     created_at: calDay(-10),
     schedules: [
@@ -125,7 +125,10 @@ export const guestSingleTracker = {
   _id: 'tracekrSample02',
   user: { _id: 'guest', ...guestBio },
   text: '트래커 예시',
-  tags: ['Sample', '예시'],
+  tags: [
+    { _id: '', text: 'Sample' },
+    { _id: '', text: '예시' },
+  ],
   cheers: [{ _id: 'guest1', ...guestBio }],
   created_at: calDay(-6),
   schedules: [

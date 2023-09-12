@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getAllTagApi } from '../features/tag/api';
+import Tags from '../components/Tags';
 import styled from 'styled-components';
 import { media } from '../styles/Mixin';
 import { colorAll } from '../styles/Variables';
 
 const SIDE = styled.div`
   grid-area: side;
+  padding: 20px;
   border-left: 1px solid ${colorAll.line};
 
   ${media.tablet} {
@@ -13,7 +16,24 @@ const SIDE = styled.div`
 `;
 
 function Side() {
-  return <SIDE>Side</SIDE>;
+  const [tags, setTags] = useState([]);
+
+  useEffect(() => {
+    const getAllTags = async () => {
+      const result = await getAllTagApi();
+      if (result) {
+        setTags(result.data.tags);
+      }
+    };
+    getAllTags();
+  }, []);
+
+  return (
+    <SIDE>
+      <h2>Latest Tags</h2>
+      <Tags tags={tags} />
+    </SIDE>
+  );
 }
 
 export default Side;

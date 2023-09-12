@@ -54,7 +54,7 @@ interface Tracker {
   text: string;
   user: User;
   schedules: Schedule[];
-  tags: string[];
+  tags: Tag[];
   url?: string;
   created_at: string;
   cheers: User[];
@@ -81,4 +81,9 @@ interface Profile {
   isSignedUser: boolean;
   todaySchedules: ScheduleFull[];
   trackers: Tracker[];
+}
+
+interface Tag {
+  text: string;
+  _id: string;
 }

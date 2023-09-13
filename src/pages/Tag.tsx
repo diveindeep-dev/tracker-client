@@ -20,7 +20,7 @@ function TagPage() {
     if (tag) {
       const getAllTags = async () => {
         const result = await getTrackerListByTagApi(tag);
-        if (result) {
+        if (result && result.data.tag) {
           setTrackerList(result.data.tag.trackers);
         }
       };

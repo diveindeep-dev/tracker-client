@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import Pic from '../../components/Pic';
 import { colorAll, fontAll } from '../../styles/Variables';
 import { Link } from 'react-router-dom';
-import { circle, hoverButton, media } from '../../styles/Mixin';
 import { getRandomColor, getRandomEmoji } from '../../utils/random';
+import { circle, hoverButton, media } from '../../styles/Mixin';
+import { Name, ProfileId } from '../../styles/Tracker';
 
 interface BioProps {
   bio: Bio | null;
@@ -15,21 +16,10 @@ interface StyleProps {
   color: string;
 }
 
-const Name = styled.div`
-  padding: 0 5px 0 15px;
-  font-size: 1.5rem;
-  line-height: 0.8;
-`;
-
-const Id = styled.div`
-  color: ${colorAll.light.grey};
-  font-size: 0.8rem;
-`;
-
 const Container = styled.div`
   display: flex;
   align-items: flex-end;
-  font-family: ${fontAll.main};
+  padding: 0 20px;
 `;
 
 const SettingLink = styled(Link)<StyleProps>`
@@ -100,8 +90,8 @@ function Bio({ bio, isSignedUser }: BioProps) {
           )}
         </WrapLink>
         <Container>
-          <Name>{name}</Name>
-          <Id>@{profileId}</Id>
+          <Name size={1.5}>{name}</Name>
+          <ProfileId size={0.9}>@{profileId}</ProfileId>
         </Container>
       </Detail>
     </Div>

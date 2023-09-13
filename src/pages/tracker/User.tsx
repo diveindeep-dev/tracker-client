@@ -5,6 +5,7 @@ import Pic from '../../components/Pic';
 import styled, { css } from 'styled-components';
 import { colorAll, fontAll } from '../../styles/Variables';
 import { circle, flexCenter, hoverButton } from '../../styles/Mixin';
+import { Name, ProfileId } from '../../styles/Tracker';
 
 interface UserProps {
   path: string;
@@ -66,35 +67,26 @@ const Dots = styled.div`
   position: relative;
 `;
 
-const Name = styled.div`
-  margin: 5px 0;
-  border-bottom: 2px solid #ffffff;
-  font-size: 1.2rem;
-  line-height: 1;
-
-  &:hover {
-    cursor: pointer;
-    border-bottom: 2px solid ${colorAll.light.grey};
-  }
-`;
-
-const Id = styled.div`
-  border-bottom: 2px solid #ffffff;
-  color: ${colorAll.light.grey};
-  font-size: 0.9rem;
-
-  &:hover {
-    cursor: pointer;
-    border-bottom: 2px solid ${colorAll.light.grey};
-  }
-`;
-
 const UserText = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 0 10px;
   font-family: ${fontAll.main};
+
+  ${Name},
+  ${ProfileId} {
+    border-bottom: 2px solid #ffffff;
+
+    &:hover {
+      cursor: pointer;
+      border-bottom: 2px solid ${colorAll.light.grey};
+    }
+  }
+
+  ${ProfileId} {
+    padding: 5px 0 0;
+  }
 `;
 
 const BioBox = styled(Link)`
@@ -118,7 +110,7 @@ function User(props: UserProps) {
         <Pic emoji={tracker.user.emoji} color={tracker.user.color} size={60} />
         <UserText>
           <Name>{tracker.user.name}</Name>
-          <Id>@{tracker.user.profileId}</Id>
+          <ProfileId size={0.9}>@{tracker.user.profileId}</ProfileId>
         </UserText>
       </BioBox>
       {isSignedUser && (

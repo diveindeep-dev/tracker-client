@@ -9,15 +9,8 @@ import Description, {
   Relative,
   Tooltip,
 } from '../../components/Description';
-import styled from 'styled-components';
 import { guestSingleTracker, guestBio } from '../../config/guestData';
-import { fontAll } from '../../styles/Variables';
-
-const Text = styled.div`
-  padding: 10px 0;
-  font-size: 1.5rem;
-  font-family: ${fontAll.body};
-`;
+import { TrackerTitle } from '../../styles/Tracker';
 
 function TrackerDescription() {
   const [tracker, setTracker] = useState(guestSingleTracker);
@@ -77,7 +70,7 @@ function TrackerDescription() {
             isSignedUser={true}
             handleDelete={() => {}}
           />
-          <Text>{tracker.text}</Text>
+          <TrackerTitle>{tracker.text}</TrackerTitle>
           <Tooltip
             position={'top: 50%; right: 50%;'}
             message={`TRACKER 정보

@@ -1,22 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { colorAll, fontAll } from '../styles/Variables';
-
-const Tag = styled(Link)`
-  font-family: ${fontAll.body};
-  font-size: 0.8rem;
-  margin: 5px 5px 5px 0;
-  border-radius: 20px;
-  padding: 5px 10px 4px;
-  background-color: ${colorAll.line};
-  z-index: 11;
-
-  &:hover {
-    background-color: ${colorAll.light.grey};
-    color: #ffffff;
-  }
-`;
+import { Tag } from '../styles/Tracker';
 
 const Div = styled.div`
   display: flex;
@@ -31,7 +15,7 @@ interface TagsProps {
 
 function Tags({ tags }: TagsProps) {
   const tagsList = tags.map((tag: Tag, i: number) => (
-    <Tag key={i} to={`/tags/${tag.text}`}>
+    <Tag as="a" key={i} href={`/tags/${tag.text}`}>
       # {tag.text}
     </Tag>
   ));

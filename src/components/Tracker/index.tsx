@@ -6,32 +6,28 @@ import Tags from '../Tags';
 import ExternalLink from '../ExternalLink';
 import styled from 'styled-components';
 import { postContainer } from '../../styles/Mixin';
-import { colorAll, fontAll } from '../../styles/Variables';
+import { colorAll } from '../../styles/Variables';
+import { Name, ProfileId, TrackerTitle } from '../../styles/Tracker';
 
 interface TrackerProps {
   tracker: Tracker;
 }
 
-const User = styled(Link)`
-  position: relative;
-  z-index: 11;
-  padding: 0 5px 0 1px;
-  font-family: ${fontAll.main};
+const User = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 2px 2px 2px 0;
 
-  span {
-    padding-left: 5px;
-    font-size: 0.8rem;
-    color: ${colorAll.light.grey};
-  }
   &:hover {
-    border-bottom: 1px solid ${colorAll.light.grey};
+    padding: 2px 2px 0 0px;
+    border-bottom: 2px solid ${colorAll.line};
   }
 `;
 
-const TEXT = styled.div`
-  font-family: ${fontAll.body};
-  font-size: 1.3rem;
-  padding: 8px 0;
+const UserLink = styled(Link)`
+  display: flex;
+  position: relative;
+  z-index: 11;
 `;
 
 const Container = styled.div`
@@ -64,11 +60,13 @@ function Tracker({ tracker }: TrackerProps) {
       <LinkTracker to={`/tracker/${tracker._id}`} />
       <Pic emoji={user.emoji} color={user.color} size={50} />
       <Container>
-        <User to={`/profile/${user.profileId}`}>
-          {user.name}
-          <span>@{user.profileId}</span>
-        </User>
-        <TEXT>{text}</TEXT>
+        <UserLink to={`/profile/${user.profileId}`}>
+          <User>
+            <Name>{user.name}</Name>
+            <ProfileId>@{user.profileId}</ProfileId>
+          </User>
+        </UserLink>
+        <TrackerTitle>{text}</TrackerTitle>
         <Tracks
           startDate={created_at}
           color={user.color}

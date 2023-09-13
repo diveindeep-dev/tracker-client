@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { colorAll, fontAll } from '../styles/Variables';
-import { flexCenter, media } from '../styles/Mixin';
+import { HiArrowUpRight } from 'react-icons/hi2';
 import { Link } from 'react-router-dom';
 import NewTracker from '../components/Tracker/New';
-import Today from './profile/Today';
 import {
-  fakeHandle,
   guestBio,
   guestSchedules,
   guestSingleTracker,
@@ -14,26 +10,36 @@ import {
 import { getRandomColor, getRandomEmoji } from '../utils/random';
 import Pic from '../components/Pic';
 import Bio from './profile/Bio';
-import User from './tracker/User';
 import Tracks from '../components/Tracker/Tracks';
-import Tags from '../components/Tags';
 import Details from './tracker/Details';
+import styled from 'styled-components';
+import { Text } from '../components/Schedules';
+import { colorAll, fontAll } from '../styles/Variables';
+import { flexCenter, media } from '../styles/Mixin';
+import { Name, ProfileId, Tag } from '../styles/Tracker';
+import Mobile from '../styles/assets/mobile.png';
+import Desktop from '../styles/assets/desktop.png';
 
-const Name = styled.div`
-  padding: 15px 0 5px;
-  font-family: ${fontAll.main};
-  font-size: 1.2rem;
+const Img = styled.img`
+  width: ${({ width }) => (width ? `${width}px` : `500px`)};
+  height: 100%;
 `;
 
-const Id = styled.div`
-  color: ${colorAll.light.grey};
-  font-family: ${fontAll.main};
-  font-size: 0.9rem;
+const User = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const Set = styled.div`
   ${flexCenter}
   flex-direction: column;
+  height: 100%;
+
+  ${User} {
+    align-items: center;
+    padding: 15px 0 10px;
+  }
 `;
 
 const Figure = styled.div`
@@ -41,12 +47,52 @@ const Figure = styled.div`
   box-shadow: -2px -2px 10px 0px ${colorAll.line};
 `;
 
-const Sub = styled.div`
-  font-size: 2rem;
-  font-family: ${fontAll.logo};
+const TrackerUser = styled.div`
+  display: flex;
+  padding: 20px 0;
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  ${ProfileId} {
+    padding: 5px 0;
+  }
+`;
+
+const Tags = styled.div`
+  display: flex;
+  padding: 10px 0;
+`;
+
+const TrackerList = styled.div`
+  padding: 20px 20px;
+  div {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    svg {
+      color: ${colorAll.light.grey};
+    }
+  }
+`;
+
+const Imgs = styled.div`
+  display: flex;
+  position: absolute;
+  right: -50px;
+  bottom: -80px;
+
+  ${media.mobile} {
+    right: -150px;
+    bottom: -50px;
+  }
 `;
 
 const Container = styled.div`
+  display: flex;
+  position: relative;
   height: 250px;
   padding: 20px;
   margin: 20px;
@@ -80,7 +126,7 @@ const ContainerLink = styled(Link)`
   &:hover {
     background-color: #f7fcfd;
 
-    ${Sub} {
+    h2 {
       color: ${colorAll.main};
     }
   }
@@ -163,7 +209,6 @@ const Title = styled.div`
   h1 {
     font-size: 3rem;
     padding: 20px 0;
-    font-family: ${fontAll.logo};
   }
 `;
 
@@ -195,7 +240,7 @@ function Index() {
       </Title>
       <ContainerHome to={`/home`}>
         <div>
-          <Sub>HOME</Sub>
+          <h2>HOME</h2>
           <p>
             오늘부터 시작하는 새로운 TRACKER를 만들고,
             <br />
@@ -208,7 +253,7 @@ function Index() {
       </ContainerHome>
       <ContainerProfile to={`/profile`}>
         <div>
-          <Sub>PROFILE</Sub>
+          <h2>PROFILE</h2>
           <p>
             유저 개인 페이지입니다.
             <br />
@@ -219,46 +264,57 @@ function Index() {
         </div>
         <Figure>
           <Bio bio={guestBio} isSignedUser={false} />
-          <Today
-            schedules={guestSchedules}
-            isSignedUser={false}
-            handleCheer={fakeHandle}
-            handleDone={fakeHandle}
-            isSample={true}
-          />
+          <TrackerList>
+            <h3>Today</h3>
+            {guestSchedules.map((schedule, i) => {
+              return (
+                <div key={i}>
+                  <Text $isDone={schedule.isDone}>{schedule.tracker.text}</Text>
+                  <HiArrowUpRight />
+                </div>
+              );
+            })}
+          </TrackerList>
         </Figure>
       </ContainerProfile>
       <ContainerSetting to={`/setting`}>
         <div>
-          <Sub>SETTING</Sub>
+          <h2>SETTING</h2>
           <p>나만의 프로필을 관리할 수 있습니다.</p>
         </div>
         <Figure>
           <Set>
-            <Pic emoji={emoji} color={color} size={150} />
-            <Name>{guestBio.name}</Name>
-            <Id>@{guestBio.profileId}</Id>
+            <Pic emoji={emoji} color={color} size={130} />
+            <User>
+              <Name>{guestBio.name}</Name>
+              <ProfileId>@{guestBio.profileId}</ProfileId>
+            </User>
           </Set>
         </Figure>
       </ContainerSetting>
       <ContainerTracker to={`/tracker`}>
         <div>
-          <Sub>TRACKER</Sub>
+          <h2>TRACKER</h2>
           <p>선택된 트래커를 자세히 볼 수 있습니다.</p>
         </div>
         <Figure>
-          <User
-            path={`/profile`}
-            tracker={guestSingleTracker}
-            isSignedUser={true}
-            handleDelete={() => {}}
-          />
+          <TrackerUser>
+            <Pic emoji={guestBio.emoji} color={guestBio.color} size={60} />
+            <User>
+              <Name>{guestBio.name}</Name>
+              <ProfileId>@{guestBio.profileId}</ProfileId>
+            </User>
+          </TrackerUser>
           <Tracks
             startDate={guestSingleTracker.created_at}
             color={guestSingleTracker.user.color}
             schedules={guestSingleTracker.schedules}
           />
-          <Tags tags={guestSingleTracker.tags} />
+          <Tags>
+            {guestSingleTracker.tags.map((tag, i) => {
+              return <Tag key={i}># {tag.text}</Tag>;
+            })}
+          </Tags>
           <Details
             cheers={guestSingleTracker.cheers}
             signedId={'guest'}
@@ -268,9 +324,13 @@ function Index() {
       </ContainerTracker>
       <Container>
         <div>
-          <Sub>Responsive Web</Sub>
+          <h2>Responsive Web</h2>
           <p>데스크탑과 모바일, 테블릿까지 편리하게 이용할 수 있습니다.</p>
         </div>
+        <Imgs>
+          <Img src={Mobile} alt="mobile" width={100} />
+          <Img src={Desktop} alt="dektop" width={400} />
+        </Imgs>
       </Container>
     </Div>
   );

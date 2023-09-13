@@ -66,6 +66,7 @@ const GlobalStyle = createGlobalStyle`
   h6 {
     margin: 0;
     font-weight: 400;
+    font-family: ${fontAll.logo};
   }
 
   p {
@@ -82,11 +83,6 @@ const GlobalStyle = createGlobalStyle`
   #main {
     grid-area: main;
     min-height: 80vh;
-  }
-
-  h2 {
-    padding: 5px;
-    font-family: ${fontAll.logo};
   }
 `;
 

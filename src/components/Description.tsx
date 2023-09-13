@@ -114,7 +114,6 @@ const Div = styled.div`
   font-family: ${fontAll.body};
 
   h3 {
-    font-family: ${fontAll.logo};
     padding: 20px 0;
   }
 

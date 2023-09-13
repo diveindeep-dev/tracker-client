@@ -24,7 +24,6 @@ const Detail = styled.div`
   padding: 30px 0;
 
   h3 {
-    font-family: ${fontAll.logo};
     padding: 20px 0;
   }
 `;

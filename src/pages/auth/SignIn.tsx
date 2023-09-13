@@ -51,7 +51,6 @@ export const FormDiv = styled.div`
   h1 {
     padding: 20px;
     width: 200px;
-    font-family: ${fontAll.logo};
     color: ${colorAll.main};
   }
 

@@ -11,6 +11,7 @@ import SettingDescription from './Description';
 import styled from 'styled-components';
 import { flexCenter, hoverButton, media } from '../../styles/Mixin';
 import { colorAll, fontAll } from '../../styles/Variables';
+import { Name, ProfileId } from '../../styles/Tracker';
 
 const Right = styled.section`
   grid-area: right;
@@ -57,22 +58,14 @@ const Form = styled.form`
   }
 `;
 
-const Name = styled.div`
-  padding: 15px 0 5px;
-  font-family: ${fontAll.main};
-  font-size: 1.2rem;
-`;
-
-const Id = styled.div`
-  color: ${colorAll.light.grey};
-  font-family: ${fontAll.main};
-  font-size: 0.9rem;
-`;
-
 const Container = styled.div`
   ${flexCenter}
   flex-direction: column;
   padding: 30px 0;
+
+  ${Name} {
+    padding: 15px 0 5px;
+  }
 `;
 
 const Left = styled.section`
@@ -82,7 +75,6 @@ const Left = styled.section`
   flex-direction: column;
   border-right: 1px solid ${colorAll.line};
   h1 {
-    font-family: ${fontAll.logo};
     padding: 20px 10px;
   }
 `;
@@ -171,7 +163,7 @@ function Setting() {
                 size={180}
               />
               <Name>{values.name || signInUser.name}</Name>
-              <Id>@{signInUser.profileId}</Id>
+              <ProfileId>@{signInUser.profileId}</ProfileId>
             </Container>
             <Menu handleMenu={setMode} mode={mode} />
             <Form onSubmit={handleSubmit}>

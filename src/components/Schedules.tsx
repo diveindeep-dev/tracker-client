@@ -6,6 +6,7 @@ import Heart from './Heart';
 import styled, { css } from 'styled-components';
 import { hoverButton } from '../styles/Mixin';
 import { colorAll, fontAll } from '../styles/Variables';
+import { useSelector } from 'react-redux';
 
 interface ScheduleProps {
   schedules: ScheduleFull[];
@@ -13,7 +14,6 @@ interface ScheduleProps {
   handleDone: (id: string) => Promise<void>;
   handleCheer: (id: string) => Promise<void>;
   isTag?: boolean;
-  isSample?: boolean;
 }
 
 interface StyleProps {
@@ -21,7 +21,7 @@ interface StyleProps {
   color?: string;
 }
 
-const Text = styled.div<StyleProps>`
+export const Text = styled.div<StyleProps>`
   font-family: ${fontAll.body};
   ${({ $isDone }) =>
     $isDone &&
@@ -81,13 +81,16 @@ function Schedules(props: ScheduleProps) {
     handleDone,
     handleCheer,
     isTag = false,
-    isSample,
   } = props;
+
+  const signedId = useSelector((state: State) => state.auth.signInUser?._id);
 
   const scheduleList = schedules.map((schedule: ScheduleFull, i: number) => {
     const { _id, tracker, isDone, date, cheers } = schedule;
     const theDate = new Date(`${date}T23:59:59`);
     const toggleButtonText = isDone ? 'UNDO' : 'DONE';
+    const testId = schedule._id === 'scheduleSample' ? 'guest' : signedId;
+    const isCheered = cheers.filter((cheer) => cheer._id === testId).length > 0;
 
     const status = isDone
       ? 'COMPLETED'
@@ -107,7 +110,7 @@ function Schedules(props: ScheduleProps) {
         <TitleContainer>
           <Text $isDone={isDone}>{tracker ? tracker.text : date}</Text>
           {tracker && (
-            <LINK to={isSample ? `/tracker` : `/tracker/${tracker._id}`}>
+            <LINK to={`/tracker/${tracker._id}`}>
               <HiArrowUpRight />
             </LINK>
           )}
@@ -123,7 +126,7 @@ function Schedules(props: ScheduleProps) {
             cheeredId={_id}
             cheers={cheers}
             handleCheer={handleCheer}
-            isSample={isSample}
+            isCheered={isCheered}
           />
         </Container>
       </SCHEDULE>

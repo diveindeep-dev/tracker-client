@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { IoHeartOutline, IoHeart } from 'react-icons/io5';
 import styled from 'styled-components';
 import { colorAll } from '../styles/Variables';
@@ -9,7 +8,7 @@ interface HeartProps {
   cheeredId: string;
   cheers: User[];
   handleCheer: (id: string) => Promise<void>;
-  isSample?: boolean;
+  isCheered: boolean;
 }
 
 interface StyleProps {
@@ -36,16 +35,9 @@ const Button = styled.button`
 `;
 
 function Heart(props: HeartProps) {
-  const { cheers, cheeredId, handleCheer, isSample = false } = props;
-  const signedId = useSelector((state: State) => state.auth.signInUser?._id);
-  const testId = isSample ? 'guest' : signedId;
-  const isCheered = cheers.filter((cheer) => cheer._id === testId).length > 0;
+  const { cheeredId, handleCheer, isCheered } = props;
 
-  const heartIcon = !testId ? (
-    <Icon>
-      <IoHeartOutline />
-    </Icon>
-  ) : isCheered ? (
+  const heartIcon = isCheered ? (
     <Icon $isCheered={isCheered}>
       <IoHeart />
     </Icon>

@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { guestSingleTracker, guestBio } from '../../config/guestData';
 import Tracks from '../../components/Tracker/Tracks';
 import Tags from '../../components/Tags';
 import Details from './Details';
@@ -11,6 +9,8 @@ import Description, {
   Relative,
   Tooltip,
 } from '../../components/Description';
+import styled from 'styled-components';
+import { guestSingleTracker, guestBio } from '../../config/guestData';
 import { fontAll } from '../../styles/Variables';
 
 const Text = styled.div`
@@ -136,7 +136,6 @@ function TrackerDescription() {
             handleDone={handleToggle}
             handleCheer={handleCheer}
             isTag={true}
-            isSample={true}
           />
         </Relative>
       </Mokup>

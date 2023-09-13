@@ -4,14 +4,13 @@ import { EmptyBox } from '../../styles/Mixin';
 
 interface TrackerListProps {
   list: Tracker[];
-  isSmaple?: boolean;
 }
 
-function TrackerList({ list, isSmaple }: TrackerListProps) {
+function TrackerList({ list }: TrackerListProps) {
   const isTracker = list.length > 0;
 
   const trackers = list.map((tracker: Tracker, i: number) => {
-    return <Tracker key={i} tracker={tracker} isSmaple={isSmaple} />;
+    return <Tracker key={i} tracker={tracker} />;
   });
 
   return (

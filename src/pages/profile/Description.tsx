@@ -80,9 +80,8 @@ function ProfileDescription() {
             isSignedUser={true}
             handleCheer={handleCheer}
             handleDone={handleToggle}
-            isSample={true}
           />
-          <TrackerList list={trackerList} isSmaple={true} />
+          <TrackerList list={trackerList} />
         </Relative>
       </Mokup>
     </Description>

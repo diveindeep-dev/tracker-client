@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Pic from '../Pic';
 import Tracks from './Tracks';
 import Tags from '../Tags';
-import ExternalLink from '../ExternalLink';
 import styled from 'styled-components';
 import { postContainer } from '../../styles/Mixin';
 import { colorAll } from '../../styles/Variables';
@@ -53,7 +52,7 @@ const Div = styled.div`
 `;
 
 function Tracker({ tracker }: TrackerProps) {
-  const { user, text, created_at, schedules, url, tags } = tracker;
+  const { user, text, created_at, schedules, tags } = tracker;
 
   return (
     <Div>
@@ -72,7 +71,6 @@ function Tracker({ tracker }: TrackerProps) {
           color={user.color}
           schedules={schedules}
         />
-        {url && <ExternalLink link={url} />}
         <Tags tags={tags} />
       </Container>
     </Div>

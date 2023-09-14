@@ -85,7 +85,7 @@ const Imgs = styled.div`
   bottom: -80px;
 
   ${media.mobile} {
-    right: -150px;
+    right: -200px;
     bottom: -50px;
   }
 `;

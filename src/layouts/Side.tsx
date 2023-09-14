@@ -9,6 +9,12 @@ const SIDE = styled.div`
   grid-area: side;
   padding: 20px;
   border-left: 1px solid ${colorAll.line};
+  h2 {
+    padding: 5px 0;
+  }
+  div > svg {
+    display: none;
+  }
 
   ${media.tablet} {
     display: none;

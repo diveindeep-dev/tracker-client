@@ -30,6 +30,9 @@ export const postContainer = css`
   display: flex;
   padding: 20px 15px;
   border-bottom: 1px solid ${colorAll.line};
+  ${media.mobile} {
+    padding: 20px 10px;
+  }
 `;
 
 export const circle = (size: number) => css`

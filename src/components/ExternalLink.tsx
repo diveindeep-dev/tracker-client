@@ -9,7 +9,7 @@ interface ExternalLinkProps {
 
 const A = styled.a`
   color: ${colorAll.blue};
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-family: ${fontAll.body};
   width: 100%;
   word-break: break-all;
@@ -22,11 +22,12 @@ const A = styled.a`
 const Div = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px 0 5px;
+  margin: 5px 0;
 
   svg {
-    font-size: 1.5rem;
-    margin: 3px;
+    font-size: 1.2rem;
+    margin: 3px 5px;
+    color: ${colorAll.light.grey};
   }
 `;
 

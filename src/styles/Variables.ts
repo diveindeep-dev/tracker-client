@@ -12,6 +12,7 @@ export const colorAll = {
   back: `#ffffff`,
   black: `#000000`,
   blue: `#00549F`,
+  green: `#rgb(0, 186, 124)`,
   light: {
     grey: `#B6B9B6`,
     red: `#DE9688`,
@@ -21,6 +22,7 @@ export const colorAll = {
     red: `#F5E0DB`,
     blue: `#DEE7EA`,
     grey: `#EAEAE9`,
+    green: `rgba(0, 186, 124, 0.1)`,
   },
 };
 

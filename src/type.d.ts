@@ -60,6 +60,8 @@ interface Tracker {
   cheers: User[];
 }
 
+type Retracker = Omit<Tracker, 'schedules' | 'created_at' | 'cheers'>;
+
 interface Schedule {
   _id: string;
   isDone: boolean;

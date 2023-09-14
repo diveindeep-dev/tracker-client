@@ -59,7 +59,7 @@ function Home() {
 
   return (
     <div>
-      <NewTracker setReload={setReload} />
+      <NewTracker setTrue={setReload} />
       <TrackerList list={trackerList} />
       {trackerList.length > 0 && (
         <EmptyBox ref={setTarget}>You're up to date</EmptyBox>

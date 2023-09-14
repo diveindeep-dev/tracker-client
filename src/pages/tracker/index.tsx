@@ -13,11 +13,14 @@ import Schedules from '../../components/Schedules';
 import Tags from '../../components/Tags';
 import ExternalLink from '../../components/ExternalLink';
 import styled from 'styled-components';
-import { EmptyBox } from '../../styles/Mixin';
+import { EmptyBox, media } from '../../styles/Mixin';
 import { fontAll } from '../../styles/Variables';
 
 const DetailTracks = styled.div`
   padding: 30px;
+  ${media.mobile} {
+    padding: 20px;
+  }
 `;
 
 const Detail = styled.div`
@@ -36,6 +39,9 @@ const Text = styled.div`
 
 const Container = styled.div`
   padding: 20px 40px;
+  ${media.mobile} {
+    padding: 20px;
+  }
 `;
 
 const Div = styled.div`
@@ -110,6 +116,13 @@ function Tracker() {
             <Details
               cheers={tracker.cheers}
               signedId={signedId}
+              retracker={{
+                _id: tracker._id,
+                text: tracker.text,
+                user: tracker.user,
+                tags: tracker.tags,
+                url: tracker.url,
+              }}
               count={
                 tracker.schedules.map((schedule) => schedule.cheers).flat(1)
                   .length

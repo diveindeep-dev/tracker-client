@@ -3,6 +3,7 @@ import { HiArrowUpRight } from 'react-icons/hi2';
 import { Link } from 'react-router-dom';
 import NewTracker from '../components/Tracker/New';
 import {
+  fakeHandle,
   guestBio,
   guestSchedules,
   guestSingleTracker,
@@ -248,7 +249,7 @@ function Index() {
           </p>
         </div>
         <Figure>
-          <NewTracker setReload={() => false} />
+          <NewTracker setTrue={fakeHandle} />
         </Figure>
       </ContainerHome>
       <ContainerProfile to={`/profile`}>

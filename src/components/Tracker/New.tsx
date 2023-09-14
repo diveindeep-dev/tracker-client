@@ -27,7 +27,8 @@ import { circle, hoverButton, media, postContainer } from '../../styles/Mixin';
 import { colorAll, fontAll } from '../../styles/Variables';
 
 interface NewProps {
-  setReload: Dispatch<SetStateAction<boolean>>;
+  setTrue: Dispatch<SetStateAction<boolean>>;
+  retracker?: Retracker;
 }
 
 interface ByteProps {
@@ -185,30 +186,33 @@ const Button = styled.button`
   }
 `;
 
+const Error = styled.div`
+  color: ${colorAll.light.red};
+  font-size: 1.1rem;
+  font-family: ${fontAll.body};
+`;
+
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
   padding: 10px 0;
-
-  div {
-    color: ${colorAll.light.grey};
-    font-size: 0.9rem;
-  }
 `;
 
-const Div = styled.div`
+const Div = styled.div<BorderProps>`
   ${postContainer}
+  ${({ order }) => !order && `border-bottom: 0;`};
 `;
 
 const initialValue: NewTrackerFormValue = {
   text: '',
   user: '',
+  tags: [],
   schedule: [],
 };
 const initialUser = { color: guestBio.color, emoji: guestBio.emoji };
 
-function NewTracker({ setReload }: NewProps) {
+function NewTracker({ setTrue, retracker }: NewProps) {
   const signedUser = useSelector((state: State) => state.auth.signInUser);
   const [user, setUser] = useState(initialUser);
   const { values, setValues, handleChange, resetValues, setError, error } =
@@ -232,9 +236,26 @@ function NewTracker({ setReload }: NewProps) {
   }, [checkedDate]);
 
   useEffect(() => {
+    if (retracker) {
+      const tags = retracker.tags.map((tag) => tag.text);
+      setTagString(tags.toString());
+      const totalByte = calculateByte(retracker.text);
+      setByte(totalByte);
+      setValues({
+        ...values,
+        text: retracker.text,
+        tags: tags,
+        url: retracker.url,
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     const { text, schedule } = values;
-    text && schedule.length ? setDisabled(false) : setDisabled(true);
-  }, [values]);
+    signedUser && text && schedule.length
+      ? setDisabled(false)
+      : setDisabled(true);
+  }, [values, signedUser]);
 
   const handleChangeTag = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -311,7 +332,7 @@ function NewTracker({ setReload }: NewProps) {
         resetValues();
         setTagString('');
         setCheckedDate([]);
-        setReload(true);
+        setTrue(true);
       } else {
         setError(`다시 시도해주세요.`);
       }
@@ -321,7 +342,7 @@ function NewTracker({ setReload }: NewProps) {
   };
 
   return (
-    <Div>
+    <Div order={retracker ? 0 : 1}>
       <Pic emoji={user.emoji} color={user.color} size={50} />
       <Form onSubmit={handleSubmit}>
         <TextContainer>
@@ -374,7 +395,7 @@ function NewTracker({ setReload }: NewProps) {
           </div>
         </DetailContainer>
         <ButtonContainer>
-          <div>{error}</div>
+          <Error>{error}</Error>
           <Button type="submit" disabled={disabled}>
             MAKE TRACKER
           </Button>

@@ -4,11 +4,13 @@ import { AiOutlineRetweet, AiOutlineLink } from 'react-icons/ai';
 import styled from 'styled-components';
 import { colorAll, fontAll } from '../../styles/Variables';
 import { flexCenter } from '../../styles/Mixin';
+import NewTracker from '../../components/Tracker/New';
 
 interface DetailsProps {
   cheers: User[];
   signedId: string | undefined;
   count: number;
+  retracker?: Retracker;
 }
 
 interface StyleProps {
@@ -28,7 +30,7 @@ const Copied = styled.div`
 
 const Icon = styled.div<StyleProps>`
   ${flexCenter}
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: ${({ color }) => color};
 
   div {
@@ -41,8 +43,8 @@ const Icon = styled.div<StyleProps>`
 
 const CopyButton = styled.button`
   ${Icon} {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     border-radius: 100%;
     &:hover {
       color: ${colorAll.blue};
@@ -51,8 +53,42 @@ const CopyButton = styled.button`
   }
 `;
 
+const RetrackerButton = styled.button`
+  ${Icon} {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    &:hover {
+      color: ${colorAll.green};
+      background-color: ${colorAll.bg.green};
+      color: #008a55;
+    }
+  }
+`;
+
+const Back = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(142, 142, 142, 0.3);
+  z-index: 100;
+`;
+
+const Modal = styled.div`
+  position: absolute;
+  top: 30%;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  max-width: 700px;
+  min-width: 300px;
+  width: 90%;
+  z-index: 101;
+`;
+
 const Div = styled.div`
-  position: relative;
   display: flex;
   justify-content: space-around;
   padding: 15px 0;
@@ -60,9 +96,10 @@ const Div = styled.div`
   border-top: 1px solid ${colorAll.line};
 `;
 
-function Details({ cheers, signedId, count }: DetailsProps) {
+function Details({ cheers, signedId, count, retracker }: DetailsProps) {
   const url = window.location.href;
   const [isCopy, setIsCopy] = useState(false);
+  const [isClose, setIsClose] = useState<boolean>(true);
 
   useEffect(() => {
     setTimeout(() => setIsCopy(false), 3000);
@@ -87,11 +124,17 @@ function Details({ cheers, signedId, count }: DetailsProps) {
     }
   };
 
+  const handleClick = () => {
+    setIsClose(false);
+  };
+
   return (
     <Div>
-      <Icon color={`${colorAll.line}`}>
-        <AiOutlineRetweet />
-      </Icon>
+      <RetrackerButton onClick={handleClick}>
+        <Icon color={retracker ? `#000000` : `${colorAll.line}`}>
+          <AiOutlineRetweet />
+        </Icon>
+      </RetrackerButton>
       <Icon color={color}>
         {isSignedUserInCheers ? <IoHeart /> : <IoHeartOutline />}
         <div>{isCheered && count}</div>
@@ -102,6 +145,14 @@ function Details({ cheers, signedId, count }: DetailsProps) {
         </Icon>
       </CopyButton>
       {isCopy && <Copied>Copied to clipboard</Copied>}
+      {!isClose && (
+        <>
+          <Back onClick={() => setIsClose(true)} />
+          <Modal>
+            <NewTracker retracker={retracker} setTrue={setIsClose} />
+          </Modal>
+        </>
+      )}
     </Div>
   );
 }

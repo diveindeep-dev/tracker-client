@@ -7,7 +7,7 @@ interface StyleProps {
 export const TrackerTitle = styled.div`
   padding: 8px 0;
   font-family: ${fontAll.body};
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 `;
 
 export const Tag = styled.div`
@@ -28,12 +28,12 @@ export const Tag = styled.div`
 export const Name = styled.div<StyleProps>`
   font-family: ${fontAll.main};
   font-size: ${({ size }) => (size ? `${size}rem` : `1.2rem`)};
-  line-height: 0.8;
+  padding-bottom: 3px;
 `;
 
 export const ProfileId = styled.div<StyleProps>`
-  padding: 0 5px;
   font-size: ${({ size }) => (size ? `${size}rem` : `0.8rem`)};
   font-family: ${fontAll.main};
   color: ${colorAll.light.grey};
+  padding: 3px 5px;
 `;

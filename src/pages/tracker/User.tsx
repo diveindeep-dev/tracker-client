@@ -67,7 +67,7 @@ const Dots = styled.div`
   position: relative;
 `;
 
-const UserText = styled.div`
+const UserBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -80,12 +80,12 @@ const UserText = styled.div`
 
     &:hover {
       cursor: pointer;
-      border-bottom: 2px solid ${colorAll.light.grey};
+      border-bottom: 2px solid ${colorAll.line};
     }
   }
 
   ${ProfileId} {
-    padding: 5px 0 0;
+    padding: 3px 0 0;
   }
 `;
 
@@ -108,10 +108,10 @@ function User(props: UserProps) {
     <Div>
       <BioBox to={path}>
         <Pic emoji={tracker.user.emoji} color={tracker.user.color} size={60} />
-        <UserText>
+        <UserBox>
           <Name>{tracker.user.name}</Name>
           <ProfileId size={0.9}>@{tracker.user.profileId}</ProfileId>
-        </UserText>
+        </UserBox>
       </BioBox>
       {isSignedUser && (
         <Dots>

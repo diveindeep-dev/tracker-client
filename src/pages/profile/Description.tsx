@@ -54,14 +54,14 @@ function ProfileDescription() {
       <Mokup>
         <Relative>
           <Tooltip
-            position={'top: 200px; left: 50%;'}
+            position={'top: 250px; right: 10px;'}
             message={`Bio 표시
               - 주소로부터 유저 정보 가져오기
               - 프로필 색상을 헤더 배경색으로 표현
               - 로그인한 유저인 경우 Edit 링크 버튼 표시`}
           />
           <Tooltip
-            position={'top: 350px; left: 50%;'}
+            position={'top: 320px; right: 10px;'}
             message={`Today항목
               - 유저의 전체 스케쥴 중 오늘 계획된 TRACK들을 표시
               - 로그인 유저라면 DONE/UNDO 버튼으로 TRACK 관리
@@ -69,7 +69,7 @@ function ProfileDescription() {
               - 응원하기 버튼`}
           />
           <Tooltip
-            position={'top: 520px; left: 50%;'}
+            position={'top: 520px; right: 10px;'}
             message={`선태 유저의 TRACKERS
               - 로그인 유저라면 위의 TODAY의 변경 내용 바로 적용
               - TRACKER 클릭 시 해당 `}

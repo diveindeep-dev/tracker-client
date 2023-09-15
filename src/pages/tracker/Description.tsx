@@ -58,7 +58,7 @@ function TrackerDescription() {
       <Mokup>
         <Relative>
           <Tooltip
-            position={'top: 30px; right: 50%;'}
+            position={'top: 30px; right: 40%;'}
             message={`유저 프로필
               - 클릭시 프로필 페이지로 연결
               - 로그인한 유저 TRACKER 메뉴 버튼 표시
@@ -103,7 +103,7 @@ function TrackerDescription() {
         </Relative>
         <Relative>
           <Tooltip
-            position={'top: 20px; left: 120px;'}
+            position={'top: 30px; left: 140px;'}
             message={`TRACKS 태그
               - 오늘 TRACK은 TODAY
               - 달성시 COMPLETE

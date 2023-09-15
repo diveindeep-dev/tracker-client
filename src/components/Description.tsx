@@ -49,6 +49,7 @@ export const Icon = styled.div<PositionProps>`
     position: absolute;
     white-space: pre-line;
     width: max-content;
+    max-width: 210px;
     height: auto;
     bottom: 2.3rem;
     right: -5px;

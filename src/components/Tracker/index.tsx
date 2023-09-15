@@ -12,14 +12,12 @@ interface TrackerProps {
   tracker: Tracker;
 }
 
-const User = styled.div`
+const UserBox = styled.div`
   display: flex;
-  align-items: center;
-  padding: 2px 2px 2px 0;
-
-  &:hover {
-    padding: 2px 2px 0 0px;
-    border-bottom: 2px solid ${colorAll.line};
+  padding: 8px 0;
+  div {
+    display: flex;
+    align-items: center;
   }
 `;
 
@@ -27,6 +25,12 @@ const UserLink = styled(Link)`
   display: flex;
   position: relative;
   z-index: 11;
+  padding-bottom: 2px;
+
+  &:hover {
+    padding-bottom: 0px;
+    border-bottom: 2px solid ${colorAll.line};
+  }
 `;
 
 const Container = styled.div`
@@ -59,12 +63,12 @@ function Tracker({ tracker }: TrackerProps) {
       <LinkTracker to={`/tracker/${tracker._id}`} />
       <Pic emoji={user.emoji} color={user.color} size={50} />
       <Container>
-        <UserLink to={`/profile/${user.profileId}`}>
-          <User>
+        <UserBox>
+          <UserLink to={`/profile/${user.profileId}`}>
             <Name>{user.name}</Name>
             <ProfileId>@{user.profileId}</ProfileId>
-          </User>
-        </UserLink>
+          </UserLink>
+        </UserBox>
         <TrackerTitle>{text}</TrackerTitle>
         <Tracks
           startDate={created_at}

@@ -30,6 +30,7 @@ const User = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 0 10px;
 `;
 
 const Set = styled.div`
@@ -58,7 +59,7 @@ const TrackerUser = styled.div`
   }
 
   ${ProfileId} {
-    padding: 5px 0;
+    padding: 3px 0;
   }
 `;
 
@@ -192,6 +193,11 @@ const ContainerTracker = styled(ContainerLink)`
     top: 20px;
     padding: 0px 20px;
     background-color: #ffffff;
+
+    ${Text} {
+      font-size: 1.3rem;
+      padding-bottom: 5px;
+    }
   }
   ${media.mobile} {
     flex-direction: column;
@@ -302,10 +308,11 @@ function Index() {
           <TrackerUser>
             <Pic emoji={guestBio.emoji} color={guestBio.color} size={60} />
             <User>
-              <Name>{guestBio.name}</Name>
+              <Name size={1.2}>{guestBio.name}</Name>
               <ProfileId>@{guestBio.profileId}</ProfileId>
             </User>
           </TrackerUser>
+          <Text>{guestSingleTracker.text}</Text>
           <Tracks
             startDate={guestSingleTracker.created_at}
             color={guestSingleTracker.user.color}

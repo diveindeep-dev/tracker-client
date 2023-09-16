@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { circle, flexCenter, media } from '../styles/Mixin';
+import { fontAll } from '../styles/Variables';
 
 interface EmojiProps {
   emoji: string;
@@ -17,15 +18,12 @@ interface StyleProps {
 
 const Div = styled.div<StyleProps>`
   ${({ size }) => circle(size)}
-  ${flexCenter}
-  padding-top: ${({ size }) => size / 13}px;
-  font-size: ${({ size }) => (size / 5) * 3}px;
+  font-family: ${fontAll.logo};
+  font-size: ${({ size }) => (size / 5.5) * 3}px;
   background-color: ${({ color }) => `${color}`};
 
   ${media.mobile} {
-    width: ${({ size }) => size * 0.9}px;
-    height: ${({ size }) => size * 0.9}px;
-    padding-top: ${({ size }) => (size * 0.9) / 13}px;
+    ${({ size }) => circle(size * 0.9)}
     font-size: ${({ size }) => ((size * 0.9) / 5) * 3}px;
   }
 

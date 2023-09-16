@@ -77,8 +77,11 @@ const Back = styled.div`
 `;
 
 const Modal = styled.div`
-  position: absolute;
-  top: 30%;
+  position: fixed;
+  margin: 0 auto;
+  top: 20%;
+  left: 0;
+  right: 0;
   padding: 10px;
   background-color: #ffffff;
   border-radius: 10px;

@@ -19,14 +19,14 @@ export const guestBio: Bio = {
 
 export const guestSchedules = [
   {
-    _id: `scheduleSample`,
+    _id: `sample1`,
     isDone: true,
     date: formattedToday,
     cheers: [],
     tracker: { text: '러닝 5km', _id: '' },
   },
   {
-    _id: `scheduleSample`,
+    _id: `sample2`,
     isDone: false,
     date: formattedToday,
     cheers: [
@@ -38,7 +38,7 @@ export const guestSchedules = [
     tracker: { text: '독서', _id: '' },
   },
   {
-    _id: `scheduleSample`,
+    _id: `sample3`,
     isDone: true,
     date: formattedToday,
     cheers: [],
@@ -46,7 +46,7 @@ export const guestSchedules = [
   },
 ];
 
-export const guestSingleTrackerList = [
+export const guestTrackerList = [
   {
     _id: '',
     user: { _id: 'guest', ...guestBio },
@@ -56,24 +56,24 @@ export const guestSingleTrackerList = [
     created_at: calDay(-3),
     schedules: [
       {
-        _id: 'scheduleSample',
+        _id: 'sample',
         date: calDay(-3),
         isDone: true,
         cheers: [{ _id: 'guest1', ...guestBio }],
       },
-      { _id: 'scheduleSample', date: calDay(-2), isDone: true, cheers: [] },
-      { _id: 'scheduleSample', date: calDay(-1), isDone: false, cheers: [] },
+      { _id: 'sample', date: calDay(-2), isDone: true, cheers: [] },
+      { _id: 'sample', date: calDay(-1), isDone: false, cheers: [] },
       { ...guestSchedules[0] },
-      { _id: 'scheduleSample', date: calDay(1), isDone: false, cheers: [] },
-      { _id: 'scheduleSample', date: calDay(2), isDone: false, cheers: [] },
-      { _id: 'scheduleSample', date: calDay(3), isDone: false, cheers: [] },
-      { _id: 'scheduleSample', date: calDay(4), isDone: false, cheers: [] },
-      { _id: 'scheduleSample', date: calDay(5), isDone: false, cheers: [] },
-      { _id: 'scheduleSample', date: calDay(6), isDone: false, cheers: [] },
-      { _id: 'scheduleSample', date: calDay(7), isDone: false, cheers: [] },
-      { _id: 'scheduleSample', date: calDay(8), isDone: false, cheers: [] },
-      { _id: 'scheduleSample', date: calDay(9), isDone: false, cheers: [] },
-      { _id: 'scheduleSample', date: calDay(10), isDone: false, cheers: [] },
+      { _id: 'sample', date: calDay(1), isDone: false, cheers: [] },
+      { _id: 'sample', date: calDay(2), isDone: false, cheers: [] },
+      { _id: 'sample', date: calDay(3), isDone: false, cheers: [] },
+      { _id: 'sample', date: calDay(4), isDone: false, cheers: [] },
+      { _id: 'sample', date: calDay(5), isDone: false, cheers: [] },
+      { _id: 'sample', date: calDay(6), isDone: false, cheers: [] },
+      { _id: 'sample', date: calDay(7), isDone: false, cheers: [] },
+      { _id: 'sample', date: calDay(8), isDone: false, cheers: [] },
+      { _id: 'sample', date: calDay(9), isDone: false, cheers: [] },
+      { _id: 'sample', date: calDay(10), isDone: false, cheers: [] },
     ],
     updated_at: '2023-09-02T08:27:44.831Z',
   },
@@ -107,15 +107,15 @@ export const guestSingleTrackerList = [
     created_at: calDay(-10),
     schedules: [
       {
-        _id: 'scheduleSample',
+        _id: 'sample',
         date: calDay(-10),
         isDone: false,
         cheers: [{ _id: 'guest1', ...guestBio }],
       },
-      { _id: 'scheduleSample', date: calDay(-6), isDone: true, cheers: [] },
-      { _id: 'scheduleSample', date: calDay(-2), isDone: true, cheers: [] },
+      { _id: 'sample', date: calDay(-6), isDone: true, cheers: [] },
+      { _id: 'sample', date: calDay(-2), isDone: true, cheers: [] },
       { ...guestSchedules[2] },
-      { _id: 'scheduleSample', date: calDay(3), isDone: false, cheers: [] },
+      { _id: 'sample', date: calDay(3), isDone: false, cheers: [] },
     ],
     updated_at: '2023-09-02T08:27:44.831Z',
   },
@@ -133,15 +133,15 @@ export const guestSingleTracker = {
   created_at: calDay(-6),
   schedules: [
     {
-      _id: 'scheduleSample',
+      _id: 'sample1',
       date: calDay(-5),
       isDone: true,
       cheers: [{ _id: 'guest1', ...guestBio }],
     },
-    { _id: 'scheduleSample', date: calDay(-3), isDone: false, cheers: [] },
-    { _id: 'scheduleSample', date: calDay(0), isDone: false, cheers: [] },
-    { _id: 'scheduleSample', date: calDay(3), isDone: false, cheers: [] },
-    { _id: 'scheduleSample', date: calDay(7), isDone: false, cheers: [] },
+    { _id: 'sample2', date: calDay(-3), isDone: false, cheers: [] },
+    { _id: 'sample3', date: calDay(0), isDone: false, cheers: [] },
+    { _id: 'sample4', date: calDay(3), isDone: false, cheers: [] },
+    { _id: 'sample5', date: calDay(7), isDone: false, cheers: [] },
   ],
   updated_at: '2023-09-02T08:27:44.831Z',
 };

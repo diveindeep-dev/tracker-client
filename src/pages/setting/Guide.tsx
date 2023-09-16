@@ -4,11 +4,7 @@ import { guestBio } from '../../config/guestData';
 import Pic from '../../components/Pic';
 import Edit from './Edit';
 import Menu from './Menu';
-import Description, {
-  Mokup,
-  Relative,
-  Tooltip,
-} from '../../components/Description';
+import Guide, { Mokup, Relative, Tooltip } from '../../components/Guide';
 import styled from 'styled-components';
 import { Name, ProfileId } from '../../styles/Tracker';
 import { colorAll } from '../../styles/Variables';
@@ -57,7 +53,7 @@ const initialValue: EditProfileFormValue = {
   emoji: '',
 };
 
-function SettingDescription() {
+function SettingGuide() {
   const [mode, setMode] = useState<string>('');
   const [disabled, setDisabled] = useState<boolean>(true);
   const { values, setValues, handleChange, setError } = useForm({
@@ -65,12 +61,13 @@ function SettingDescription() {
   });
 
   return (
-    <Description title={`SETTING`}>
+    <Guide title={`SETTING`}>
       <Mokup>
         <Grid>
           <Left>
             <Relative>
               <Tooltip
+                isLeft={true}
                 position={'bottom: 1%; right: 10%;'}
                 message={`프로필 세팅
                 - 변경되는 내용 바로 표현
@@ -100,8 +97,8 @@ function SettingDescription() {
           </Right>
         </Grid>
       </Mokup>
-    </Description>
+    </Guide>
   );
 }
 
-export default SettingDescription;
+export default SettingGuide;

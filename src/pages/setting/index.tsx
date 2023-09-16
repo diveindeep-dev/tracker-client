@@ -7,7 +7,7 @@ import useForm from '../../hooks/useForm';
 import Pic from '../../components/Pic';
 import Menu from './Menu';
 import Edit from './Edit';
-import SettingDescription from './Description';
+import SettingGuide from './Guide';
 import styled from 'styled-components';
 import { flexCenter, hoverButton, media } from '../../styles/Mixin';
 import { colorAll, fontAll } from '../../styles/Variables';
@@ -185,7 +185,7 @@ function Setting() {
           </Right>
         </Grid>
       ) : (
-        <SettingDescription />
+        <SettingGuide />
       )}
     </div>
   );

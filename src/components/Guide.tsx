@@ -2,29 +2,23 @@ import React, { ReactNode } from 'react';
 import { BsQuestionCircle } from 'react-icons/bs';
 import styled, { css } from 'styled-components';
 import { colorAll, fontAll } from '../styles/Variables';
-import { media } from '../styles/Mixin';
+import { flexCenter, media } from '../styles/Mixin';
 
-interface DescriptionProps {
+interface GuideProps {
   title: string;
   children: ReactNode;
 }
 
 interface PositionProps {
   position: string;
+  isLeft?: boolean;
 }
 
-export const Mokup = styled.div`
-  scale: 95%;
-  border: 1px solid ${colorAll.line};
-  padding: 20px;
-
-  ${media.mobile} {
-    scale: 98%;
-    padding: 0 10px;
-  }
+export const Relative = styled.div`
+  position: relative;
 `;
 
-export const Icon = styled.div<PositionProps>`
+export const ToolIcon = styled.div<PositionProps>`
   position: absolute;
   z-index: 100;
   ${({ position }) =>
@@ -49,11 +43,11 @@ export const Icon = styled.div<PositionProps>`
     position: absolute;
     white-space: pre-line;
     width: max-content;
-    max-width: 210px;
+    max-width: 250px;
     height: auto;
     bottom: 2.3rem;
-    right: -5px;
-    font-size: 0.89rem;
+    ${({ isLeft }) => (isLeft ? `left: -20px;` : `right: -5px;`)};
+    font-size: 0.9rem;
     line-height: 1.1;
     color: ${colorAll.black};
     background-color: #f0f4fe;
@@ -67,9 +61,9 @@ export const Icon = styled.div<PositionProps>`
     display: block;
     position: absolute;
     width: 0;
-    right: 5px;
+    ${({ isLeft }) => (isLeft ? `left: 20px;` : `right: 5px;`)};
     bottom: -16.5px;
-    border-color: #fbfcff transparent transparent;
+    border-color: #f0f4fe transparent transparent;
     border-style: solid;
     border-width: 9px;
     content: '';
@@ -80,7 +74,9 @@ export const Icon = styled.div<PositionProps>`
     display: block;
     position: absolute;
     width: 0;
-    right: 5px;
+    ${({ isLeft }) => (isLeft ? `left: 20px;` : `right: 5px;`)};
+
+    /* left: 20px; */
     bottom: -18px;
     border-color: ${colorAll.main} transparent transparent;
     border-style: solid;
@@ -90,67 +86,80 @@ export const Icon = styled.div<PositionProps>`
   }
 `;
 
-export const Relative = styled.div`
+export const Mokup = styled.div`
   position: relative;
-`;
-
-const Sub = styled.div`
-  font-size: 1.1rem;
-  line-height: 1.1;
-  svg {
-    font-size: 1rem;
+  border: 1px solid ${colorAll.line};
+  padding: 20px;
+  ${media.mobile} {
+    padding: 10px;
   }
 `;
 
-const FeatSection = styled.div`
-  padding: 20px 10px 10px;
+const Title = styled.div`
+  ${flexCenter}
+  flex-direction: column;
+  padding: 20px 0;
+  div {
+    ${flexCenter}
+    margin: 2px;
+    svg {
+      margin-bottom: 2px;
+      width: 15px;
+      height: 15px;
+    }
+  }
 
-  ${media.mobile} {
-    padding: 20px 5px;
+  h1 {
+    font-size: 2.2rem;
+    padding: 20px 0;
   }
 `;
 
 const Div = styled.div`
   padding: 20px;
   font-family: ${fontAll.body};
-
   h3 {
     padding: 20px 0;
   }
 
   ${media.mobile} {
-    padding: 20px 10px;
+    padding: 10px;
   }
 `;
 
 interface TooltipProps {
   message: string;
   position: string;
+  isLeft?: boolean;
 }
 
-export const Tooltip = ({ message, position }: TooltipProps) => {
+export const Tooltip = ({
+  message,
+  position,
+  isLeft = false,
+}: TooltipProps) => {
   return (
-    <Icon position={position}>
+    <ToolIcon position={position} isLeft={isLeft}>
       <BsQuestionCircle />
       <div className="tooltip">{message}</div>
-    </Icon>
+    </ToolIcon>
   );
 };
 
-function Description({ title, children }: DescriptionProps) {
+function Guide({ title, children }: GuideProps) {
   return (
     <Div>
-      <h2>{title}</h2>
-      <FeatSection>
-        <Sub>
-          랜덤으로 만들어진 Guest {title} 페이지입니다. <br />
-          예시 페이지로 현재 페이지에서만 적용됩니다. <br />
-          <BsQuestionCircle />를 사용하면 설명을 보실 수 있습니다.
-        </Sub>
-        {children}
-      </FeatSection>
+      <Title>
+        <h1>{title}</h1>
+        <div>{title} 소개 페이지입니다.</div>
+        <div>기능 소개 페이지로, 현재 페이지에서만 적용됩니다.</div>
+        <div>
+          <BsQuestionCircle />를 사용하면 자세한 설명을 보실 수 있습니다.
+        </div>
+      </Title>
+      {children}
     </Div>
   );
 }
 
-export default Description;
+export default Guide;

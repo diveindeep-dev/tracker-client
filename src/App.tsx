@@ -10,8 +10,8 @@ import Home from './pages/home';
 import Profile from './pages/profile';
 import Tracker from './pages/tracker';
 import Setting from './pages/setting';
-import ProfileDescription from './pages/profile/Description';
-import TrackerDescription from './pages/tracker/Description';
+import ProfileGuide from './pages/profile/Guide';
+import TrackerGuide from './pages/tracker/Guide';
 import TagPage from './pages/Tag';
 import NotFound from './pages/NotFound';
 import GlobalStyle from './styles/GlobalStyle';
@@ -36,17 +36,21 @@ function App() {
           <Route path="/" element={<Index />} />
           <Route path="/home" element={<Home />} />
           <Route path="/profile/:profileId" element={<Profile />} />
-          <Route path="/profile" element={<ProfileDescription />} />
+          <Route path="/profile" element={<ProfileGuide />} />
           <Route
             path="/signup"
-            element={isAuthenticated ? <Navigate replace to="/home" /> : <SignUp />}
+            element={
+              isAuthenticated ? <Navigate replace to="/home" /> : <SignUp />
+            }
           />
           <Route
             path="/signin"
-            element={isAuthenticated ? <Navigate replace to="/home" /> : <SignIn />}
+            element={
+              isAuthenticated ? <Navigate replace to="/home" /> : <SignIn />
+            }
           />
           <Route path="/tracker/:trackerId" element={<Tracker />} />
-          <Route path="/tracker" element={<TrackerDescription />} />
+          <Route path="/tracker" element={<TrackerGuide />} />
           <Route path="/setting" element={<Setting />} />
           <Route path="/tags/:tag" element={<TagPage />} />
           <Route path="*" element={<NotFound />} />

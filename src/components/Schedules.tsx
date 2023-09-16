@@ -89,7 +89,8 @@ function Schedules(props: ScheduleProps) {
     const { _id, tracker, isDone, date, cheers } = schedule;
     const theDate = new Date(`${date}T23:59:59`);
     const toggleButtonText = isDone ? 'UNDO' : 'DONE';
-    const testId = schedule._id === 'scheduleSample' ? 'guest' : signedId;
+    const testId =
+      schedule._id.substring(0, 6) === 'sample' ? 'guest' : signedId;
     const isCheered = cheers.filter((cheer) => cheer._id === testId).length > 0;
 
     const status = isDone

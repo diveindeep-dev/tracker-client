@@ -4,15 +4,11 @@ import Tags from '../../components/Tags';
 import Details from './Details';
 import User from './User';
 import Schedules from '../../components/Schedules';
-import Description, {
-  Mokup,
-  Relative,
-  Tooltip,
-} from '../../components/Description';
+import Guide, { Mokup, Relative, Tooltip } from '../../components/Guide';
 import { guestSingleTracker, guestBio } from '../../config/guestData';
 import { TrackerTitle } from '../../styles/Tracker';
 
-function TrackerDescription() {
+function TrackerGuide() {
   const [tracker, setTracker] = useState(guestSingleTracker);
   const [schedules, setSchedules] = useState(tracker.schedules);
 
@@ -39,6 +35,7 @@ function TrackerDescription() {
         ...copy[target],
         cheers: [...copy[target].cheers, { _id: 'guest', ...guestBio }],
       };
+      console.log(copy[target], '?');
       trackerCopy.schedules = [...prevSchedules, copy[target]];
 
       if (!isGuest) {
@@ -54,43 +51,46 @@ function TrackerDescription() {
   };
 
   return (
-    <Description title={`TRACKER`}>
+    <Guide title={`TRACKER`}>
       <Mokup>
-        <Relative>
-          <Tooltip
-            position={'top: 30px; right: 40%;'}
-            message={`유저 프로필
+        <Tooltip
+          position={'top: 70px; right: 20px;'}
+          message={`유저 프로필
               - 클릭시 프로필 페이지로 연결
               - 로그인한 유저 TRACKER 메뉴 버튼 표시
               - 삭제 버튼 모달로 표시`}
-          />
-          <User
-            path={`/profile`}
-            tracker={tracker}
-            isSignedUser={true}
-            handleDelete={() => {}}
-          />
+        />
+        <User
+          path={`/profile`}
+          tracker={tracker}
+          isSignedUser={true}
+          handleDelete={() => {}}
+        />
+        <Relative>
           <TrackerTitle>{tracker.text}</TrackerTitle>
           <Tooltip
-            position={'top: 50%; right: 50%;'}
+            isLeft={true}
+            position={'top: 10px; left: 130px;'}
             message={`TRACKER 정보
-              - 미리 계획했던 날짜만 활성화
-              - 달성시 유저 컬러로 체크
-              - 비달성시 회색으로 x표시`}
-          />
-          <Tracks
-            startDate={tracker.created_at}
-            color={tracker.user.color}
-            schedules={schedules}
-          />
-          <Tags tags={tracker.tags} />
+          - 미리 계획했던 날짜만 활성화
+          - 달성시 유저 컬러로 체크
+          - 비달성시 회색으로 x표시`}
+          ></Tooltip>
         </Relative>
+        <Tracks
+          startDate={tracker.created_at}
+          color={tracker.user.color}
+          schedules={schedules}
+        />
+        <Tags tags={tracker.tags} />
         <Relative>
           <Tooltip
-            position={'top: 5px; left: 54%;'}
-            message={`응원 통계
-              - 응원 받은 총 횟수
-              - 응원한적 있으면 유저 컬러로 표시`}
+            isLeft={true}
+            position={'top: 35%; left: 15px;'}
+            message={`<추가 기능>
+          - Retracker: 정보를 가져와 새로운 TRACKER를 작성
+          - 응원: 응원 받은 총 횟수/ 응원한 TRACCKER일시, 유저 컬러로 표시
+          - 링크복사: 현재 주소 클립보드에 복사`}
           />
           <Details
             cheers={tracker.cheers}
@@ -99,11 +99,18 @@ function TrackerDescription() {
               tracker.schedules.map((schedule) => schedule.cheers).flat(1)
                 .length
             }
+            retracker={{
+              _id: tracker._id,
+              text: tracker.text,
+              user: tracker.user,
+              tags: tracker.tags,
+            }}
           />
         </Relative>
         <Relative>
           <Tooltip
-            position={'top: 30px; left: 140px;'}
+            isLeft={true}
+            position={'top: 30px; left: 100px;'}
             message={`TRACKS 태그
               - 오늘 TRACK은 TODAY
               - 달성시 COMPLETE
@@ -132,8 +139,8 @@ function TrackerDescription() {
           />
         </Relative>
       </Mokup>
-    </Description>
+    </Guide>
   );
 }
 
-export default TrackerDescription;
+export default TrackerGuide;

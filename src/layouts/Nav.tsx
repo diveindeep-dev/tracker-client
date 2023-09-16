@@ -82,6 +82,7 @@ const Div = styled.div`
     top: auto;
     width: 100%;
     height: 80px;
+    z-index: 150;
   }
 `;
 

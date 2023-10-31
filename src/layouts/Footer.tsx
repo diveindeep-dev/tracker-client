@@ -24,7 +24,7 @@ const FOOTER = styled.footer`
 function Footer() {
   return (
     <FOOTER>
-      Created by <a href={'https://diveindeep.space/'}>diveindeep</a>
+      Created by <a href={'https://diveindeep.dev/'}>diveindeep</a>
     </FOOTER>
   );
 }
